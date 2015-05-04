@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Visitor Pattern | Hexo</title>
+  <title>Visitor Pattern | Software Development Ramblings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Visitor Pattern">
-<meta property="og:url" content="http://yoursite.com/2011/12/visitor-pattern/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://www.piotrbuda.eu/2011/12/visitor-pattern/index.html">
+<meta property="og:site_name" content="Software Development Ramblings">
 <meta property="og:description" content="Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Visitor Pattern">
 <meta name="twitter:description" content="Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…">
-<meta name="twitter:creator" content="@jr0cket">
+<meta name="twitter:creator" content="@piotrbuda">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Software Development Ramblings" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -26,7 +26,7 @@
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28030709-2']);
+  _gaq.push(['_setAccount', 'UA-62603909-1']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -45,8 +45,12 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">Software Development Ramblings</a>
       </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Java, Scala and Android</a>
+        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -55,31 +59,18 @@
         
           <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="http://jr0cket.co.uk/developer-guides">DevGuides</a>
-        
-          <a class="main-nav-link" href="http://jr0cket.co.uk/slides">Slides</a>
-        
-          <a class="main-nav-link" href="/workshops">Workshops</a>
-        
-          <a class="main-nav-link" href="/clojure">Clojure</a>
-        
-          <a class="main-nav-link" href="/hexo">Hexo</a>
-        
-          <a class="main-nav-link" href="http://ubuntu.jr0cket.co.uk">Ubuntu</a>
-        
       </nav>
       <nav id="sub-nav">
-        <a id="nav-github-link" class="nav-icon" href="https://github.com/jr0cket" target="_blank"></a>
-        <a id="nav-linkedin-link" class="nav-icon" href="https://uk.linkedin.com/in/jr0cket" target="_blank"></a>
-        <a id="nav-twitter-link" class="nav-icon" href="https://twitter.com/jr0cket" target="_blank"></a>
-        <a id="nav-googleplus-link" class="nav-icon" href="https://plus.google.com/117080433375668558463" target="_blank"></a>
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/pbuda" target="_blank"></a>
+        <a id="nav-linkedin-link" class="nav-icon" href="https://pl.linkedin.com/in/piotrbuda" target="_blank"></a>
+        <a id="nav-twitter-link" class="nav-icon" href="https://twitter.com/piotrbuda" target="_blank"></a>
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://www.piotrbuda.eu"></form>
       </div>
     </div>
   </div>
@@ -117,7 +108,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2011/12/visitor-pattern/" data-id="ci9ag6c6s000023odtb9nzkfr" class="article-share-link">Share</a>
+      <a data-url="http://www.piotrbuda.eu/2011/12/visitor-pattern/" data-id="ci9ah5lmq00006qod5y5mjiic" class="article-share-link">Share</a>
+      
+        <a href="http://www.piotrbuda.eu/2011/12/visitor-pattern/#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -141,6 +134,12 @@
   
 </article>
 
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -221,9 +220,8 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
-      <a href="http://twitter.com/jr0cket" target="_blank">@jr0cket</a><br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2015 Piotr Buda<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with <a href="https://github.com/jr0cket/hexo-theme-landscape-jr0cket" target="_blank">landscape-jr0cket</a> theme.
     </div>
   </div>
 </footer>
@@ -232,20 +230,22 @@
   
     <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="http://jr0cket.co.uk/developer-guides" class="mobile-nav-link">DevGuides</a>
-  
-    <a href="http://jr0cket.co.uk/slides" class="mobile-nav-link">Slides</a>
-  
-    <a href="/workshops" class="mobile-nav-link">Workshops</a>
-  
-    <a href="/clojure" class="mobile-nav-link">Clojure</a>
-  
-    <a href="/hexo" class="mobile-nav-link">Hexo</a>
-  
-    <a href="http://ubuntu.jr0cket.co.uk" class="mobile-nav-link">Ubuntu</a>
-  
 </nav>
     
+<script>
+  var disqus_shortname = 'piotrbuda';
+  
+  var disqus_url = 'http://www.piotrbuda.eu/2011/12/visitor-pattern/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
