@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Trying to solve Error 491 in Play Store on Android Emulator | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Installing Google Play Store on Android emulator is quite easy - I described it in my previous article. However there is one problem that does not allow downloading of apps - the dreadful Error 491.Af">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trying to solve Error 491 in Play Store on Android Emulator">
+<meta property="og:url" content="http://yoursite.com/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Installing Google Play Store on Android emulator is quite easy - I described it in my previous article. However there is one problem that does not allow downloading of apps - the dreadful Error 491.Af">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trying to solve Error 491 in Play Store on Android Emulator">
+<meta name="twitter:description" content="Installing Google Play Store on Android emulator is quite easy - I described it in my previous article. However there is one problem that does not allow downloading of apps - the dreadful Error 491.Af">
+<meta name="twitter:creator" content="@jr0cket">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28030709-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="http://jr0cket.co.uk/developer-guides">DevGuides</a>
+        
+          <a class="main-nav-link" href="http://jr0cket.co.uk/slides">Slides</a>
+        
+          <a class="main-nav-link" href="/workshops">Workshops</a>
+        
+          <a class="main-nav-link" href="/clojure">Clojure</a>
+        
+          <a class="main-nav-link" href="/hexo">Hexo</a>
+        
+          <a class="main-nav-link" href="http://ubuntu.jr0cket.co.uk">Ubuntu</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/jr0cket" target="_blank"></a>
+        <a id="nav-linkedin-link" class="nav-icon" href="https://uk.linkedin.com/in/jr0cket" target="_blank"></a>
+        <a id="nav-twitter-link" class="nav-icon" href="https://twitter.com/jr0cket" target="_blank"></a>
+        <a id="nav-googleplus-link" class="nav-icon" href="https://plus.google.com/117080433375668558463" target="_blank"></a>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-trying-to-solve-error-491-in-play-store-on-android-emulator" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator/" class="article-date">
+  <time datetime="2012-06-26T07:23:00.000Z" itemprop="datePublished">2012-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Trying to solve Error 491 in Play Store on Android Emulator
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Installing Google Play Store on Android emulator is quite easy - I described it in my <a href="/2012/05/installing-google-play-on-android-emulator.html">previous article</a>. However there is one problem that does not allow downloading of apps - the dreadful Error 491.<br>After some investigation it appears that the error happens because Android emulator does not have DRM! This is the exact error that is displayed in Logcat:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">25</span> <span class="number">07</span>:<span class="number">51</span>:<span class="number">42.142</span>: WARN/<span class="function"><span class="title">DownloadManager</span><span class="params">(<span class="number">342</span>)</span></span>: Exception <span class="keyword">for</span> id <span class="number">7</span>: android/drm/DrmManagerClient</span><br><span class="line">        java<span class="class">.lang</span><span class="class">.NoClassDefFoundError</span>: android/drm/DrmManagerClient</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadDrmHelper</span><span class="class">.isDrmMimeType</span>(DownloadDrmHelper<span class="class">.java</span>:<span class="number">45</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.Helpers</span><span class="class">.checkCanHandleDownload</span>(Helpers<span class="class">.java</span>:<span class="number">148</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.Helpers</span><span class="class">.generateSaveFile</span>(Helpers<span class="class">.java</span>:<span class="number">81</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadThread</span><span class="class">.processResponseHeaders</span>(DownloadThread<span class="class">.java</span>:<span class="number">563</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadThread</span><span class="class">.executeDownload</span>(DownloadThread<span class="class">.java</span>:<span class="number">256</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadThread</span><span class="class">.run</span>(DownloadThread<span class="class">.java</span>:<span class="number">172</span>)</span><br></pre></td></tr></table></figure>
+<p>I’ve tried a few things to fix this, but nothing really helped. The CyanogenMod Google Apps package contained some DRM jar, but it didn’t help at all. So I’ve decided to browse my Galaxy S2 and found this <em>/system/app/DrmProvider.apk</em> which I thought might help. So I pulled it from device and pushed it to the emulator. As expected, it kind of worked, but it now threw another exception:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">25</span> <span class="number">07</span>:<span class="number">53</span>:<span class="number">52.043</span>: WARN/DownloadManager(<span class="number">724</span>): Exception <span class="keyword">for</span> id <span class="number">8</span>: <span class="literal">null</span></span><br><span class="line">        java.lang.ExceptionInInitializerError</span><br><span class="line">        at com.android.providers.downloads.DownloadDrmHelper.isDrmMimeType(DownloadDrmHelper.<span class="string">java:</span><span class="number">45</span>)</span><br><span class="line">        at com.android.providers.downloads.Helpers.checkCanHandleDownload(Helpers.<span class="string">java:</span><span class="number">148</span>)</span><br><span class="line">        at com.android.providers.downloads.Helpers.generateSaveFile(Helpers.<span class="string">java:</span><span class="number">81</span>)</span><br><span class="line">        at com.android.providers.downloads.DownloadThread.processResponseHeaders(DownloadThread.<span class="string">java:</span><span class="number">563</span>)</span><br><span class="line">        at com.android.providers.downloads.DownloadThread.executeDownload(DownloadThread.<span class="string">java:</span><span class="number">256</span>)</span><br><span class="line">        at com.android.providers.downloads.DownloadThread.run(DownloadThread.<span class="string">java:</span><span class="number">172</span>)</span><br><span class="line">        Caused <span class="string">by:</span> java.lang.<span class="string">UnsatisfiedLinkError:</span> Library drmframework_jni not found; tried [<span class="regexp">/vendor/</span>lib<span class="regexp">/libdrmframework_jni.so, /</span>system<span class="regexp">/lib/</span>libdrmframework_jni.so]</span><br><span class="line">        at java.lang.Runtime.loadLibrary(Runtime.<span class="string">java:</span><span class="number">393</span>)</span><br><span class="line">        at java.lang.System.loadLibrary(System.<span class="string">java:</span><span class="number">535</span>)</span><br><span class="line">        at android.drm.DrmManagerClient.&lt;clinit&gt;(DrmManagerClient.<span class="string">java:</span><span class="number">56</span>)</span><br><span class="line">        ... <span class="number">6</span> more</span><br></pre></td></tr></table></figure>
+<p>So I dig deeper and tried extracting missing .so files. Browsing my phone revealed four files that I might be interested in: <em>libdrm1.so</em>, <em>libdrm1_jni.so</em>, <em>libdrmframework.so</em> and <em>libdrmframework_jni.so</em>. Again, pulled those from device and pushed to emulator but I got the first exception and got stuck.</p>
+<p>At this point I don’t have any more ideas how to solve this problem, but I will still try. It appears that installing DRM on emulator might be much more problematic than pulling some apks from real devices.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator/" data-id="ci9ag6c8q001a23od3nb7damg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2012/06/play-store-on-emulator-and-morals/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Play Store on Emulator and morals
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2012/05/installing-google-play-on-android-emulator/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Installing Google Play on Android Emulator</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+          </li>
+        
+          <li>
+            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+          </li>
+        
+          <li>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/google-play-store/">google play store</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/">hardware</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a><a href="/tags/cloud/" style="font-size: 10px;">cloud</a><a href="/tags/google-play/" style="font-size: 10px;">google play</a><a href="/tags/openshift/" style="font-size: 10px;">openshift</a><a href="/tags/play/" style="font-size: 10px;">play</a><a href="/tags/play-store-api/" style="font-size: 10px;">play store api</a><a href="/tags/sbt/" style="font-size: 10px;">sbt</a><a href="/tags/scala/" style="font-size: 20px;">scala</a><a href="/tags/spray/" style="font-size: 10px;">spray</a><a href="/tags/store/" style="font-size: 10px;">store</a><a href="/tags/websocket/" style="font-size: 10px;">websocket</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 John Doe<br>
+      <a href="http://twitter.com/jr0cket" target="_blank">@jr0cket</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="http://jr0cket.co.uk/developer-guides" class="mobile-nav-link">DevGuides</a>
+  
+    <a href="http://jr0cket.co.uk/slides" class="mobile-nav-link">Slides</a>
+  
+    <a href="/workshops" class="mobile-nav-link">Workshops</a>
+  
+    <a href="/clojure" class="mobile-nav-link">Clojure</a>
+  
+    <a href="/hexo" class="mobile-nav-link">Hexo</a>
+  
+    <a href="http://ubuntu.jr0cket.co.uk" class="mobile-nav-link">Ubuntu</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>

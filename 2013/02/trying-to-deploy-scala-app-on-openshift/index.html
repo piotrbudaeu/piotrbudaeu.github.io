@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Trying to deploy Scala app on OpenShift | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The begginingThis is a simple log of what I have done during past few days trying to deploy a simple app to OpenShift. I thought it would be quite easy but apparently this is beyond my knowledge. My a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trying to deploy Scala app on OpenShift">
+<meta property="og:url" content="http://yoursite.com/2013/02/trying-to-deploy-scala-app-on-openshift/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="The begginingThis is a simple log of what I have done during past few days trying to deploy a simple app to OpenShift. I thought it would be quite easy but apparently this is beyond my knowledge. My a">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trying to deploy Scala app on OpenShift">
+<meta name="twitter:description" content="The begginingThis is a simple log of what I have done during past few days trying to deploy a simple app to OpenShift. I thought it would be quite easy but apparently this is beyond my knowledge. My a">
+<meta name="twitter:creator" content="@jr0cket">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28030709-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="http://jr0cket.co.uk/developer-guides">DevGuides</a>
+        
+          <a class="main-nav-link" href="http://jr0cket.co.uk/slides">Slides</a>
+        
+          <a class="main-nav-link" href="/workshops">Workshops</a>
+        
+          <a class="main-nav-link" href="/clojure">Clojure</a>
+        
+          <a class="main-nav-link" href="/hexo">Hexo</a>
+        
+          <a class="main-nav-link" href="http://ubuntu.jr0cket.co.uk">Ubuntu</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/jr0cket" target="_blank"></a>
+        <a id="nav-linkedin-link" class="nav-icon" href="https://uk.linkedin.com/in/jr0cket" target="_blank"></a>
+        <a id="nav-twitter-link" class="nav-icon" href="https://twitter.com/jr0cket" target="_blank"></a>
+        <a id="nav-googleplus-link" class="nav-icon" href="https://plus.google.com/117080433375668558463" target="_blank"></a>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-trying-to-deploy-scala-app-on-openshift" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/" class="article-date">
+  <time datetime="2013-02-26T09:35:00.000Z" itemprop="datePublished">2013-02-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/scala/">scala</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Trying to deploy Scala app on OpenShift
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="The_beggining">The beggining</h3><p>This is a simple log of what I have done during past few days trying to deploy a simple app to <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a>. I thought it would be quite easy but apparently this is beyond my knowledge. My application is a simple Hello World app. The only real requirement is that I wanted this app to compile with Scala 2.10.</p>
+<h3 id="Setup">Setup</h3><p>I won’t discuss how to set up the application on <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a> (unless it is really needed). The only thing worth mentioning is that you will need a Do-It-Yourself type.</p>
+<h3 id="SBT">SBT</h3><p>There is no <a href="http://www.scala-sbt.org/" target="_blank" rel="external">SBT</a> on <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a>. That’s right, you have to get it yourself. <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a> however provides a nice way of storing things with its data directory (available at $OPENSHIFT_DATA_DIR) and it’s action hooks are the way to go in this case. After some trial and error this is the script I came up with.<br><figure class="highlight bash"><figcaption><span>pre_build script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$OPENSHIFT_DATA_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="operator">-d</span> sbt ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"SBT installed"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  curl -o sbt.tgz http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/<span class="number">0.12</span>.<span class="number">2</span>/sbt.tgz</span><br><span class="line">  tar zxvf sbt.tgz sbt</span><br><span class="line">  rm sbt.tgz</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><br>This script basically downloads SBT from its site but only if SBT folder is not present in the data directory. Then the downloaded tgz archive gets unpacked and SBT is ready to be used.</p>
+<h3 id="Building">Building</h3><p>Now this is the part I spent most time with and unfortunately I can’t make it fully work :( There were several issues with building using <a href="http://www.scala-sbt.org/" target="_blank" rel="external">SBT</a>, but after some time it almost worked. Here’s the build script I developed that semi-works.<br><figure class="highlight stylus"><figcaption><span>build script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SBT_PATH=<span class="variable">$OPENSHIFT_DATA_DIR</span>/sbt</span><br><span class="line">SBT_DIR=<span class="variable">$OPENSHIFT_DATA_DIR</span>/<span class="class">.sbt</span></span><br><span class="line">IVY_DIR=<span class="variable">$OPENSHIFT_DATA_DIR</span>/<span class="class">.ivy</span></span><br><span class="line"></span><br><span class="line">cd <span class="variable">$OPENSHIFT_REPO_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$SBT_PATH</span>/bin/sbt -sbt-dir <span class="variable">$SBT_DIR</span> -ivy <span class="variable">$IVY_DIR</span> start-script</span><br></pre></td></tr></table></figure><br>This took a while to figure out. Let’s go line by line to see what everything is needed for. Lines 1, 2 and 3 define three variables that are required to run <a href="http://www.scala-sbt.org/" target="_blank" rel="external">SBT</a> (they could have been moved to pre_build script to keep everything SBT related in one place). </p>
+<ul>
+<li>Line 1 simply defines the path to <a href="http://www.scala-sbt.org/" target="_blank" rel="external">SBT</a> directory.</li>
+<li>Line 2 is a variable with path to folder <a href="http://www.scala-sbt.org/" target="_blank" rel="external">SBT</a> uses to store its data. On <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a> you don’t have permission to write to your home directory, hence a need for custom dir.</li>
+<li>Line 3 is like line 2 except for Ivy cache.</li>
+<li>Line 5 then switches to the repository directory. This is the place where your sources reside and this is mostly the place where you should start your build at.</li>
+<li>Line 7 is a simple invocation of the SBT with the predefined settings. I’m generating a start script here (using xsbt-start-script-plugin) and that’s why I only include this goal.</li>
+</ul>
+<p>This somewhat works. Considering the requirements we now have a project that uses Scala 2.10. But there are now two things to consider.</p>
+<p>At first in pre_build I downloaded SBT 0.12.2 and in project build.settings I had SBT setup to 0.12.1. This triggered a compilation of ‘compiler-interface’.<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">remote: [info] Compiling <span class="number">1</span> Scala <span class="keyword">source</span> to <span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span><span class="keyword">runtime</span><span class="regexp">/repo/</span>target<span class="regexp">/scala-2.10/</span>classes...</span><br><span class="line">remote: [info] <span class="string">'compiler-interface'</span> not yet compiled <span class="keyword">for</span> Scala <span class="number">2.10</span>.<span class="number">0</span>. Compiling...</span><br></pre></td></tr></table></figure><br>But this failed. Compilation wouldn’t finish and the process was killed. Small fix in build.properties and upping the actual <a href="http://www.scala-sbt.org/" target="_blank" rel="external">SBT</a> version to 0.12.2 fixed this - no more recompilation of ‘compiler-interface’.</p>
+<p>When you push your project to <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a> now, it downloads SBT, unpacks it and tries to build your project. And it fails with the same error as above.<br><figure class="highlight stata"><figcaption><span>Build fails after git push</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">remote: restart_on_add=false</span><br><span class="line">remote: stop</span><br><span class="line">remote: Done</span><br><span class="line">remote: restart_on_add=false</span><br><span class="line">remote: Running .openshift/action_hooks/pre_build</span><br><span class="line">remote: pre_build</span><br><span class="line">remote: SBT installed</span><br><span class="line">remote: Running .openshift/action_hooks/build</span><br><span class="line">remote: build</span><br><span class="line">remote: /<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/git/yatstaging2.git</span><br><span class="line">remote: /<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo</span><br><span class="line">remote: [info] Loading project definition from /<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/project</span><br><span class="line">remote: [info] Updating &#123;<span class="keyword">file</span>:/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/project/&#125;default-2353b7...</span><br><span class="line">        [info] Resolving org.<span class="keyword">scala</span>-sbt#precompiled-2_10_0;0.12.2 ...</span><br><span class="line">remote: [info] Done updating.</span><br><span class="line">remote: [info] <span class="keyword">Set</span> current project to YAT Server (<span class="keyword">in</span> build <span class="keyword">file</span>:/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/)</span><br><span class="line">remote: [info] Updating &#123;<span class="keyword">file</span>:/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/&#125;default-e6271e...</span><br><span class="line">remote: [info] Resolving org.<span class="keyword">scala</span>-lang#<span class="keyword">scala</span>-library;2.10.0 ...</span><br><span class="line">remote: [info] Done updating.</span><br><span class="line">remote: [debug]</span><br><span class="line">remote: [debug] Initial source changes:</span><br><span class="line">remote: [debug]   removed:<span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] 	added: <span class="keyword">Set</span>(/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/src/main/<span class="keyword">scala</span>/<span class="keyword">pl</span>/apptile/yat/YAT.<span class="keyword">scala</span>)</span><br><span class="line">remote: [debug] 	modified: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] Removed products: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] Modified external sources: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] Modified binary dependencies: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] Initial directly invalidated sources: <span class="keyword">Set</span>(/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/src/main/<span class="keyword">scala</span>/<span class="keyword">pl</span>/apptile/yat/YAT.<span class="keyword">scala</span>)</span><br><span class="line">remote: [debug]</span><br><span class="line">remote: [debug] Sources indirectly invalidated <span class="keyword">by</span>:</span><br><span class="line">remote: [debug] 	product: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] 	binary dep: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] 	external source: <span class="keyword">Set</span>()</span><br><span class="line">remote: [debug] Initially invalidated: <span class="keyword">Set</span>(/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/src/main/<span class="keyword">scala</span>/<span class="keyword">pl</span>/apptile/yat/YAT.<span class="keyword">scala</span>)</span><br><span class="line">remote: [debug] Recompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources</span><br><span class="line">remote: [info] Compiling 1 <span class="keyword">Scala</span> source to /<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/target/<span class="keyword">scala</span>-2.10/classes...</span><br><span class="line">remote: [debug] Running cached compiler 18d45f0, interfacing (CompilerInterface) with <span class="keyword">Scala</span> compiler <span class="keyword">version</span> 2.10.0</span><br><span class="line">remote: [debug] Calling <span class="keyword">Scala</span> compiler with arguments  (CompilerInterface):</span><br><span class="line">remote: [debug] 	-<span class="literal">d</span></span><br><span class="line">remote: [debug] 	/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/target/<span class="keyword">scala</span>-2.10/classes</span><br><span class="line">remote: [debug] 	-bootclasspath</span><br><span class="line">remote: [debug] 	/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/resources.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/rt.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/jsse.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/jce.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/charsets.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/netx.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/<span class="keyword">plugin</span>.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/rhino.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/lib/jfr.jar:/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.9/jre/classes:/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/data/.sbt/<span class="keyword">boot</span>/<span class="keyword">scala</span>-2.10.0/lib/<span class="keyword">scala</span>-library.jar</span><br><span class="line">remote: [debug] 	-classpath</span><br><span class="line">remote: [debug] 	/<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/target/<span class="keyword">scala</span>-2.10/classes</span><br><span class="line">remote: /<span class="keyword">var</span>/lib/openshift/512617424382ec272a0000b1/<span class="keyword">app</span>-root/runtime/repo/.openshift/action_hooks/build: <span class="keyword">line</span> 21:  7042 Killed            <span class="label">$SBT_PATH</span>/bin/sbt -sbt-<span class="keyword">dir</span> <span class="label">$SBT_DIR</span> -ivy <span class="label">$IVY_DIR</span> start-script</span><br><span class="line">remote: Running .openshift/action_hooks/deploy</span><br><span class="line">remote: deploy</span><br><span class="line">remote: hot_deploy_added=false</span><br><span class="line">remote: start</span><br><span class="line">remote: Done</span><br><span class="line">remote: start: missing job name</span><br><span class="line">remote: Try `start --<span class="keyword">help</span>' <span class="keyword">for</span> <span class="keyword">more</span> information.</span><br><span class="line">remote: Running .openshift/action_hooks/post_deploy</span><br><span class="line">remote: post_deploy</span><br></pre></td></tr></table></figure><br>The process is being killed anyway. This was driving me crazy, because no matter what I did the build always crashed. Then I tried SSH and run the script manually and… bam! It worked.<br><figure class="highlight groovy"><figcaption><span>Build successful when run manually from SSH session</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">build</span><br><span class="line"><span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1</span><br><span class="line"><span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime/repo</span><br><span class="line">[info] Loading project definition from <span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>project</span><br><span class="line">[info] Set current project to YAT Server (<span class="keyword">in</span> build <span class="string">file:</span><span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>)</span><br><span class="line">[debug]</span><br><span class="line">[debug] Initial source <span class="string">changes:</span></span><br><span class="line">[debug]   <span class="string">removed:</span>Set()</span><br><span class="line">[debug] 	<span class="string">added:</span> Set(<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>src<span class="regexp">/main/</span>scala<span class="regexp">/pl/</span>apptile<span class="regexp">/yat/</span>YAT.scala)</span><br><span class="line">[debug] 	<span class="string">modified:</span> Set()</span><br><span class="line">[debug] Removed <span class="string">products:</span> Set()</span><br><span class="line">[debug] Modified external <span class="string">sources:</span> Set()</span><br><span class="line">[debug] Modified binary <span class="string">dependencies:</span> Set()</span><br><span class="line">[debug] Initial directly invalidated <span class="string">sources:</span> Set(<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>src<span class="regexp">/main/</span>scala<span class="regexp">/pl/</span>apptile<span class="regexp">/yat/</span>YAT.scala)</span><br><span class="line">[debug]</span><br><span class="line">[debug] Sources indirectly invalidated <span class="string">by:</span></span><br><span class="line">[debug] 	<span class="string">product:</span> Set()</span><br><span class="line">[debug] 	binary <span class="string">dep:</span> Set()</span><br><span class="line">[debug] 	external <span class="string">source:</span> Set()</span><br><span class="line">[debug] Initially <span class="string">invalidated:</span> Set(<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>src<span class="regexp">/main/</span>scala<span class="regexp">/pl/</span>apptile<span class="regexp">/yat/</span>YAT.scala)</span><br><span class="line">[debug] Recompiling all <span class="number">1</span> <span class="string">sources:</span> invalidated sources (<span class="number">1</span>) exceeded <span class="number">50.0</span>% of all sources</span><br><span class="line">[info] Compiling <span class="number">1</span> Scala source to <span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>target<span class="regexp">/scala-2.10/</span>classes...</span><br><span class="line">[debug] Running cached compiler <span class="number">12</span>a6774, interfacing (CompilerInterface) with Scala compiler version <span class="number">2.10</span>.0</span><br><span class="line">[debug] Calling Scala compiler with arguments  (CompilerInterface):</span><br><span class="line">[debug] 	-d</span><br><span class="line">[debug] 	<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>target<span class="regexp">/scala-2.10/</span>classes</span><br><span class="line">[debug] 	-bootclasspath</span><br><span class="line">[debug] 	<span class="regexp">/usr/</span>lib<span class="regexp">/jvm/</span>java-<span class="number">1.7</span>.0-openjdk-<span class="number">1.7</span>.0.9<span class="regexp">/jre/</span>lib<span class="regexp">/resources.jar:/</span>usr<span class="regexp">/lib/</span>jvm<span class="regexp">/java-1.7.0-openjdk-1.7.0.9/</span>jre<span class="regexp">/lib/</span>rt.<span class="string">jar:</span><span class="regexp">/usr/</span>lib<span class="regexp">/jvm/</span>java-<span class="number">1.7</span>.0-openjdk-<span class="number">1.7</span>.0.9<span class="regexp">/jre/</span>lib<span class="regexp">/sunrsasign.jar:/</span>usr<span class="regexp">/lib/</span>jvm<span class="regexp">/java-1.7.0-openjdk-1.7.0.9/</span>jre<span class="regexp">/lib/</span>jsse.<span class="string">jar:</span><span class="regexp">/usr/</span>lib<span class="regexp">/jvm/</span>java-<span class="number">1.7</span>.0-openjdk-<span class="number">1.7</span>.0.9<span class="regexp">/jre/</span>lib<span class="regexp">/jce.jar:/</span>usr<span class="regexp">/lib/</span>jvm<span class="regexp">/java-1.7.0-openjdk-1.7.0.9/</span>jre<span class="regexp">/lib/</span>charsets.<span class="string">jar:</span><span class="regexp">/usr/</span>lib<span class="regexp">/jvm/</span>java-<span class="number">1.7</span>.0-openjdk-<span class="number">1.7</span>.0.9<span class="regexp">/jre/</span>lib<span class="regexp">/netx.jar:/</span>usr<span class="regexp">/lib/</span>jvm<span class="regexp">/java-1.7.0-openjdk-1.7.0.9/</span>jre<span class="regexp">/lib/</span>plugin.<span class="string">jar:</span><span class="regexp">/usr/</span>lib<span class="regexp">/jvm/</span>java-<span class="number">1.7</span>.0-openjdk-<span class="number">1.7</span>.0.9<span class="regexp">/jre/</span>lib<span class="regexp">/rhino.jar:/</span>usr<span class="regexp">/lib/</span>jvm<span class="regexp">/java-1.7.0-openjdk-1.7.0.9/</span>jre<span class="regexp">/lib/</span>jfr.<span class="string">jar:</span><span class="regexp">/usr/</span>lib<span class="regexp">/jvm/</span>java-<span class="number">1.7</span>.0-openjdk-<span class="number">1.7</span>.0.9<span class="regexp">/jre/</span><span class="string">classes:</span><span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>data<span class="regexp">/.sbt/</span>boot<span class="regexp">/scala-2.10.0/</span>lib/scala-library.jar</span><br><span class="line">[debug] 	-classpath</span><br><span class="line">[debug] 	<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>target<span class="regexp">/scala-2.10/</span>classes</span><br><span class="line">[debug] Scala compilation took <span class="number">34.206682197</span> s</span><br><span class="line">[debug] Step <span class="number">2</span> changed sources and immdediate <span class="string">dependencies:</span></span><br><span class="line">[debug] 	Set(<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>src<span class="regexp">/main/</span>scala<span class="regexp">/pl/</span>apptile<span class="regexp">/yat/</span>YAT.scala)</span><br><span class="line">[debug] Non-trivial strongly connected <span class="string">components:</span></span><br><span class="line">[debug]</span><br><span class="line">[debug] Step <span class="number">2</span> invalidated <span class="string">sources:</span></span><br><span class="line">[debug] 	Set(<span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>src<span class="regexp">/main/</span>scala<span class="regexp">/pl/</span>apptile<span class="regexp">/yat/</span>YAT.scala)</span><br><span class="line">[info] Wrote start script <span class="keyword">for</span> <span class="string">mainClass :</span>= Some(pl.apptile.yat.YAT) to <span class="regexp">/var/</span>lib<span class="regexp">/openshift/</span><span class="number">512617424382</span>ec272a0000b1<span class="regexp">/app-root/</span>runtime<span class="regexp">/repo/</span>target/start</span><br></pre></td></tr></table></figure><br>This is quite puzzling and I can’t figure out why automatic build doesn’t work. What’s worth mentioning though is that it does work when you change Scala to 2.9.2. But it’s against requirements and hence I stopped at this point, unable to continue.</p>
+<h3 id="Summary">Summary</h3><p>While I was really happy that most of the things were quite easy to start with, inability to compile the sources makes it a no-no for further work, like actually starting a spray-can server. My application was a Hello World app and if this can’t compile… Sorry <a href="https://openshift.redhat.com/app/" target="_blank" rel="external">OpenShift</a>, for now I’m switching to <a href="http://www.cloudfoundry.com/" target="_blank" rel="external">CloudFoundry</a> to see how it fares.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/02/trying-to-deploy-scala-app-on-openshift/" data-id="ci9ag6c83000b23odqsym6ju6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cloud/">cloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openshift/">openshift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sbt/">sbt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spray/">spray</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/04/scalawebsocket/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ScalaWebSocket
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/02/angularjs-directive-for-password-matching/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Angular directive for password matching</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+          </li>
+        
+          <li>
+            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+          </li>
+        
+          <li>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/google-play-store/">google play store</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/">hardware</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a><a href="/tags/cloud/" style="font-size: 10px;">cloud</a><a href="/tags/google-play/" style="font-size: 10px;">google play</a><a href="/tags/openshift/" style="font-size: 10px;">openshift</a><a href="/tags/play/" style="font-size: 10px;">play</a><a href="/tags/play-store-api/" style="font-size: 10px;">play store api</a><a href="/tags/sbt/" style="font-size: 10px;">sbt</a><a href="/tags/scala/" style="font-size: 20px;">scala</a><a href="/tags/spray/" style="font-size: 10px;">spray</a><a href="/tags/store/" style="font-size: 10px;">store</a><a href="/tags/websocket/" style="font-size: 10px;">websocket</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 John Doe<br>
+      <a href="http://twitter.com/jr0cket" target="_blank">@jr0cket</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="http://jr0cket.co.uk/developer-guides" class="mobile-nav-link">DevGuides</a>
+  
+    <a href="http://jr0cket.co.uk/slides" class="mobile-nav-link">Slides</a>
+  
+    <a href="/workshops" class="mobile-nav-link">Workshops</a>
+  
+    <a href="/clojure" class="mobile-nav-link">Clojure</a>
+  
+    <a href="/hexo" class="mobile-nav-link">Hexo</a>
+  
+    <a href="http://ubuntu.jr0cket.co.uk" class="mobile-nav-link">Ubuntu</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
+<meta name="twitter:creator" content="@jr0cket">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:400,700,400italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28030709-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="http://jr0cket.co.uk/developer-guides">DevGuides</a>
+        
+          <a class="main-nav-link" href="http://jr0cket.co.uk/slides">Slides</a>
+        
+          <a class="main-nav-link" href="/workshops">Workshops</a>
+        
+          <a class="main-nav-link" href="/clojure">Clojure</a>
+        
+          <a class="main-nav-link" href="/hexo">Hexo</a>
+        
+          <a class="main-nav-link" href="http://ubuntu.jr0cket.co.uk">Ubuntu</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-github-link" class="nav-icon" href="https://github.com/jr0cket" target="_blank"></a>
+        <a id="nav-linkedin-link" class="nav-icon" href="https://uk.linkedin.com/in/jr0cket" target="_blank"></a>
+        <a id="nav-twitter-link" class="nav-icon" href="https://twitter.com/jr0cket" target="_blank"></a>
+        <a id="nav-googleplus-link" class="nav-icon" href="https://plus.google.com/117080433375668558463" target="_blank"></a>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-twittory-lessons-learned-dont-mock-iterator" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/09/twittory-lessons-learned-dont-mock-iterator/" class="article-date">
+  <time datetime="2012-09-14T09:40:00.000Z" itemprop="datePublished">2012-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/09/twittory-lessons-learned-dont-mock-iterator/">Twittory lessons learned - don&#39;t mock Iterator</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><del>So I’m doing this pet project now called <a href="https://github.com/pbuda/twittory" target="_blank" rel="external">Twittory</a> and because it’s hosted on Github, people can review it and voice their oppinions.</del><strong>Update (03 Feb 2013): I no longer develop this project.</strong></p>
+<p>Marcin Deryło (<a href="https://twitter.com/marcinderylo" target="_blank" rel="external">twitter</a>, <a href="http://marcinderylo.blogspot.com/" target="_blank" rel="external">blog</a>), a friend of mine, has recently reviewed some simple tests already present in the project and he raised an issue with mocking iterators.</p>
+<p>I’ve had a very simple method which iterated over a collection returned by Twitter4J API. To do that, I simply mocked an Iterator and it’s hasNext() and next() methods (using Mockito it’s really simple anyway):<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">returns_details_only_for_tweets_with_links</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    Status status1 = prepareStatus(<span class="string">"Status 1"</span>);</span><br><span class="line">    Status status2 = prepareStatus(<span class="string">"Text with link http://www.onet.pl in it"</span>);</span><br><span class="line">    Status status3 = prepareStatus(<span class="string">"Status 3"</span>);</span><br><span class="line">    ResponseList&lt;Status&gt; mockResponse = mock(ResponseList.class);</span><br><span class="line">    Iterator mockIterator = mock(Iterator.class);</span><br><span class="line"></span><br><span class="line">    when(mockIterator.hasNext()).thenReturn(<span class="keyword">true</span>).thenReturn(<span class="keyword">true</span>).thenReturn(<span class="keyword">true</span>).thenReturn(<span class="keyword">false</span>);</span><br><span class="line">    when(mockIterator.next()).thenReturn(status1).thenReturn(status2).thenReturn(status3);</span><br><span class="line">    when(mockResponse.iterator()).thenReturn(mockIterator);</span><br><span class="line">    when(twitter.getHomeTimeline()).thenReturn(mockResponse);</span><br><span class="line"></span><br><span class="line">    List&lt;LinkDetails&gt; scan = scanner.scan();</span><br><span class="line">    assertNotNull(scan);</span><br><span class="line">    assertEquals(<span class="number">1</span>, scan.size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>But said friend of mine suggested to drop mocking here in favor of actually returning a real iterator:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">returns_details_only_for_tweets_with_links</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    Status status1 = prepareStatus(<span class="string">"Status 1"</span>);</span><br><span class="line">    Status status2 = prepareStatus(<span class="string">"Text with link http://www.onet.pl in it"</span>);</span><br><span class="line">    Status status3 = prepareStatus(<span class="string">"Status 3"</span>);</span><br><span class="line">    ResponseList&lt;Status&gt; mockResponse = mock(ResponseList.class);</span><br><span class="line"></span><br><span class="line">    when(mockResponse.iterator()).thenReturn(Arrays.asList(status1, status2, status3).iterator());</span><br><span class="line">    when(twitter.getHomeTimeline()).thenReturn(mockResponse);</span><br><span class="line"></span><br><span class="line">    List&lt;LinkDetails&gt; scan = scanner.scan();</span><br><span class="line">    assertNotNull(scan);</span><br><span class="line">    assertEquals(<span class="number">1</span>, scan.size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>Pretty slick, eh? Saves code and complexity while becoming much more readable at the same time.</p>
+<p>Learning FTW.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/09/twittory-lessons-learned-dont-mock-iterator/" data-id="ci9ag6c8j000t23od38phima6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gitflow-intellij-idea-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/08/gitflow-intellij-idea-plugin/" class="article-date">
+  <time datetime="2012-08-06T11:37:00.000Z" itemprop="datePublished">2012-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/08/gitflow-intellij-idea-plugin/">GitFlow Intellij Idea plugin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I am creating a few side projects currently and I use git-flow Git extension for each of them, but I lack the support from Intellij Idea in this regard – mainly the starting and stopping of features and releases.</p>
+<p>So because of that I’ve started a small project to include said functionality in Idea. It’s nothing major as apparently Jetbrains will include such plugin in some version of Intellij, but I need it now and I’m interested in how to write plugins for Idea<br>What will the plugin be able to do?</p>
+<p>git flow init -d<br>git flow feature start/finish<br>git flow release start/finish<br>The first version I will release will be able to do 1 and 2 while option 3 will be available at some later time. But I don’t know yet when I will release it, so stay tuned if you’re interested.</p>
+<p>The project is of course at <a href="https://github.com/pbuda/gitflowidea" target="_blank" rel="external">GitHub</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/08/gitflow-intellij-idea-plugin/" data-id="ci9ag6c8l000u23od4bre0rt2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-play-store-api-on-github-dot-com" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/07/play-store-api-on-github-dot-com/" class="article-date">
+  <time datetime="2012-07-23T09:59:00.000Z" itemprop="datePublished">2012-07-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>►<a class="article-category-link" href="/categories/android/google-play-store/">google play store</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/07/play-store-api-on-github-dot-com/">Play Store API on GitHub.com</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>[Update 2013-05-14] I will no longer keep this project on my GitHub, I didn’t have time to play with it and most likely this is already obsolete API. It has been removed.</strong></p>
+<p><del>If anyone is interested, I mirrored a great project: <a href="http://code.google.com/p/android-market-api/" target="_blank" rel="external">Android Market API</a> and it’s now available <a href="https://github.com/pbuda/playstoreapi" target="_blank" rel="external">on GitHub.com</a>. I am using this API for my yet-to-be announced Android project and because of lack of support from original authors I decided to mirror it and introduce fixes/new features.</del></p>
+<p><del>Currently I’m reworking the API of the project, but for now you can download the sources and build with Maven OR download the jar directly from project downloads section.</del></p>
+<p><del>However, please notice that I focus on making this library work well on Android devices because in order to work properly it requires actual Android device capable of running Play Store.</del></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/07/play-store-api-on-github-dot-com/" data-id="ci9ag6c8n000v23od25kejwvb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/api/">api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/google-play/">google play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play-store-api/">play store api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/store/">store</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-play-store-on-emulator-and-morals" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/06/play-store-on-emulator-and-morals/" class="article-date">
+  <time datetime="2012-06-26T09:30:00.000Z" itemprop="datePublished">2012-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/06/play-store-on-emulator-and-morals/">Play Store on Emulator and morals</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I’ve recently noticed that I have some traffic to my blog from <a href="http://stackoverflow.com/questions/11154222/google-play-in-android-4-0-emulator" target="_blank" rel="external">some question posted on Stack Overflow</a>. I checked out the question out of curiosity and what I found made me wonder, particularly <a href="http://stackoverflow.com/a/11155703/840794" target="_blank" rel="external">this answer</a>. I don’t have enough rep to comment on other answers, so I decided to rant here a little.</p>
+<p>I understand that Google doesn’t want their Play Store available on devices that are not licensed, I don’t pretend to know why, I can only guess. But I don’t want to be called a software pirate. I did not rip Play Store from a device nor I distribute it. The Play Store apk that I used comes from CyanogenMod page, AFAIK the Google apps package for CM is the only way for their users to update Google apps. Is this also pirating?  If so, we have SO MANY pirates in Android world then! There are more than <a href="http://stats.cyanogenmod.com/" target="_blank" rel="external">one million CM users</a> out there so that means more than one million people pirate Play Store. Not to mention some Kindle Fire users who install Play Store on their rooted devices.</p>
+<p>I am no lawyer, but after reading Google Play EULA several times, I don’t find any point that prohibits me from installing it on emulator. Now Google did make an attempt to limit Play Store use on emulator (even if not on purpose) by using DRM protection which makes Google Play not work on emulator anyway - <a href="http://www.piotrbuda.eu/2012/06/trying-to-solve-error-491-in-play-store.html" target="_blank" rel="external">you can’t download apps!</a></p>
+<p>Rant over, I just needed to vent.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/06/play-store-on-emulator-and-morals/" data-id="ci9ag6c8s001b23odivvuhwjk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-trying-to-solve-error-491-in-play-store-on-android-emulator" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator/" class="article-date">
+  <time datetime="2012-06-26T07:23:00.000Z" itemprop="datePublished">2012-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator/">Trying to solve Error 491 in Play Store on Android Emulator</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Installing Google Play Store on Android emulator is quite easy - I described it in my <a href="/2012/05/installing-google-play-on-android-emulator.html">previous article</a>. However there is one problem that does not allow downloading of apps - the dreadful Error 491.<br>After some investigation it appears that the error happens because Android emulator does not have DRM! This is the exact error that is displayed in Logcat:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">25</span> <span class="number">07</span>:<span class="number">51</span>:<span class="number">42.142</span>: WARN/<span class="function"><span class="title">DownloadManager</span><span class="params">(<span class="number">342</span>)</span></span>: Exception <span class="keyword">for</span> id <span class="number">7</span>: android/drm/DrmManagerClient</span><br><span class="line">        java<span class="class">.lang</span><span class="class">.NoClassDefFoundError</span>: android/drm/DrmManagerClient</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadDrmHelper</span><span class="class">.isDrmMimeType</span>(DownloadDrmHelper<span class="class">.java</span>:<span class="number">45</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.Helpers</span><span class="class">.checkCanHandleDownload</span>(Helpers<span class="class">.java</span>:<span class="number">148</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.Helpers</span><span class="class">.generateSaveFile</span>(Helpers<span class="class">.java</span>:<span class="number">81</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadThread</span><span class="class">.processResponseHeaders</span>(DownloadThread<span class="class">.java</span>:<span class="number">563</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadThread</span><span class="class">.executeDownload</span>(DownloadThread<span class="class">.java</span>:<span class="number">256</span>)</span><br><span class="line">        at com<span class="class">.android</span><span class="class">.providers</span><span class="class">.downloads</span><span class="class">.DownloadThread</span><span class="class">.run</span>(DownloadThread<span class="class">.java</span>:<span class="number">172</span>)</span><br></pre></td></tr></table></figure>
+<p>I’ve tried a few things to fix this, but nothing really helped. The CyanogenMod Google Apps package contained some DRM jar, but it didn’t help at all. So I’ve decided to browse my Galaxy S2 and found this <em>/system/app/DrmProvider.apk</em> which I thought might help. So I pulled it from device and pushed it to the emulator. As expected, it kind of worked, but it now threw another exception:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">25</span> <span class="number">07</span>:<span class="number">53</span>:<span class="number">52.043</span>: WARN/DownloadManager(<span class="number">724</span>): Exception <span class="keyword">for</span> id <span class="number">8</span>: <span class="literal">null</span></span><br><span class="line">        java.lang.ExceptionInInitializerError</span><br><span class="line">        at com.android.providers.downloads.DownloadDrmHelper.isDrmMimeType(DownloadDrmHelper.<span class="string">java:</span><span class="number">45</span>)</span><br><span class="line">        at com.android.providers.downloads.Helpers.checkCanHandleDownload(Helpers.<span class="string">java:</span><span class="number">148</span>)</span><br><span class="line">        at com.android.providers.downloads.Helpers.generateSaveFile(Helpers.<span class="string">java:</span><span class="number">81</span>)</span><br><span class="line">        at com.android.providers.downloads.DownloadThread.processResponseHeaders(DownloadThread.<span class="string">java:</span><span class="number">563</span>)</span><br><span class="line">        at com.android.providers.downloads.DownloadThread.executeDownload(DownloadThread.<span class="string">java:</span><span class="number">256</span>)</span><br><span class="line">        at com.android.providers.downloads.DownloadThread.run(DownloadThread.<span class="string">java:</span><span class="number">172</span>)</span><br><span class="line">        Caused <span class="string">by:</span> java.lang.<span class="string">UnsatisfiedLinkError:</span> Library drmframework_jni not found; tried [<span class="regexp">/vendor/</span>lib<span class="regexp">/libdrmframework_jni.so, /</span>system<span class="regexp">/lib/</span>libdrmframework_jni.so]</span><br><span class="line">        at java.lang.Runtime.loadLibrary(Runtime.<span class="string">java:</span><span class="number">393</span>)</span><br><span class="line">        at java.lang.System.loadLibrary(System.<span class="string">java:</span><span class="number">535</span>)</span><br><span class="line">        at android.drm.DrmManagerClient.&lt;clinit&gt;(DrmManagerClient.<span class="string">java:</span><span class="number">56</span>)</span><br><span class="line">        ... <span class="number">6</span> more</span><br></pre></td></tr></table></figure>
+<p>So I dig deeper and tried extracting missing .so files. Browsing my phone revealed four files that I might be interested in: <em>libdrm1.so</em>, <em>libdrm1_jni.so</em>, <em>libdrmframework.so</em> and <em>libdrmframework_jni.so</em>. Again, pulled those from device and pushed to emulator but I got the first exception and got stuck.</p>
+<p>At this point I don’t have any more ideas how to solve this problem, but I will still try. It appears that installing DRM on emulator might be much more problematic than pulling some apks from real devices.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator/" data-id="ci9ag6c8q001a23od3nb7damg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-installing-google-play-on-android-emulator" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/05/installing-google-play-on-android-emulator/" class="article-date">
+  <time datetime="2012-05-02T19:40:00.000Z" itemprop="datePublished">2012-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/05/installing-google-play-on-android-emulator/">Installing Google Play on Android Emulator</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="The_problem">The problem</h3><p>I wanted to install Google Play on emulator. Problem is no guide on the net could tell me precisely how to do this. I’m not sure why, it seemed that they worked with old Android Market (pre version 3 era) or at least people shown some screenshots of that but I couldn’t make it work at home.</p>
+<p>The difference was that I tried to install Google Play on an Ice Cream Sandwitch emulator (API level 15) and it always failed.</p>
+<h3 id="First_attempts">First attempts</h3><p>I first found <a href="http://blog.varunkumar.me/2010/11/how-to-install-android-market-in-google.html" target="_blank" rel="external">this site</a>. I tried setting up everything from there but I just couldn’t make it work. Possible because their Vending.apk couldn’t start, I have no clue. Then I found <a href="http://www.tech-recipes.com/rx/10004/accessing-android-market-from-android-sdk/" target="_blank" rel="external">this site</a> and I somehow managed to install Vending.apk on emulator using this guide, but I couldn’t reproduce that.</p>
+<p>One of the problems with those guides (which made me spend a lot of time on something useless) was that both these guides made me delete two files from AVD: cache.img and userdata-qemu.img. Why? Apparently when you wanted to restart emulator, these files were responsible for reinitialization of emulator to it’s starting state (like full wipe/factory reset). I tried and tried and I always ended up without my changes.</p>
+<h3 id="New_Hope">New Hope</h3><p>After that I found that there is a snapshot option in AVD configuration window so I just checked it and finally I was able to see last state of emulator. Maybe it’s not perfect - it works like hibernation on your laptop - but it works and after a whole day of fight it was enough.</p>
+<p>I then though why do I install some obsolete Vending.apk and GoogleServicesFramework.apk? Why can’t I have a new one there? So I connected my phone and pulled those apks from it. Of course it didn’t work, but I was not sure why. But I remembered something - <del>CyanogenMod has Google apps packed in a zip</del> (UPDATE: CyanogenMod does no longer host Google Apps, but you can <a href="http://goo.im/gapps/" target="_blank" rel="external">find them here</a>! So I downloaded their package and extracted everything I needed - Vending.apk and GoogleServicesFramework.apk. But it was not enough.</p>
+<p>So I had an AVD set up with snapshots enabled and I proceeded to installing my new apks - full script will be posted at the end.</p>
+<pre><code><span class="number">1.</span> You have <span class="keyword">to</span> remount system partition <span class="keyword">in</span> <span class="command">read</span>-<span class="command">write</span> mode.
+<span class="number">2.</span> Then <span class="keyword">it</span>'s necessary <span class="keyword">to</span> allow writing <span class="keyword">to</span> /system/app directory
+<span class="number">3.</span> After <span class="keyword">that</span> <span class="keyword">is</span> done just push apks <span class="keyword">to</span> /system/app/. (notice <span class="keyword">the</span> dot <span class="keyword">at</span> <span class="keyword">the</span> <span class="keyword">end</span>) 
+<span class="number">4.</span> Just <span class="keyword">for</span> <span class="keyword">the</span> sake <span class="keyword">of</span> other guides I also remove /system/app/SdkSetup* (both apk <span class="keyword">and</span> odex)
+</code></pre><p>Voila! Google Play is installed on emulator! But it still doesn’t work. In order for it to start working, you need an account - Google account. This step also cost me some time. My AVD was based on Android 4.0.3, not the Google APIs one. So I changed it and… still nothing.</p>
+<p>Apparently in recent releases Google decided to decouple their account provider from the OS so they have a separate apk that allows configuration of Google accounts - it’s called GoogleLoginService.apk. Pushing this to emulator solved all the problems - you don’t even need Google APIs (you can set up against Android 4.0.3 option). Now when you enter Play Store you get prompted for an account and it works!</p>
+<h3 id="Conclusion">Conclusion</h3><p>After two days of trying I finally was able to launch and browse Google Play Store on an Android emulator with Ice Cream Sandwitch. Phew.</p>
+<p>Command I use to start my emulator<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">emulator</span> -avd am -partition-size <span class="number">200</span> -<span class="built_in">no</span>-audio -<span class="built_in">no</span>-boot-anim</span><br></pre></td></tr></table></figure><br>Full script (assumes you have created and started your AVD)<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb shell mount -o remount,rw -t yaffs2 /dev/block/mtdblock<span class="number">0</span> /<span class="keyword">system</span></span><br><span class="line">adb shell <span class="keyword">chmod</span> <span class="number">777</span> /<span class="keyword">system</span>/app</span><br><span class="line">adb <span class="keyword">push</span> GoogleLoginService.apk /<span class="keyword">system</span>/app/.</span><br><span class="line">adb <span class="keyword">push</span> GoogleServicesFramework.apk /<span class="keyword">system</span>/app/.</span><br><span class="line">adb <span class="keyword">push</span> Vending.apk /<span class="keyword">system</span>/app/.</span><br><span class="line">adb shell rm /<span class="keyword">system</span>/app/SdkSetup*</span><br></pre></td></tr></table></figure><br>That script will work as long as you run it from a dir in which you have all the necessary apks. Of course you have to have your PATH environment variable set correctly (so that all those commands are actually accessible) but I suppose you know that already.</p>
+<h3 id="Settings_of_the_AVD">Settings of the AVD</h3><img src="/images/avdsettings.png" title="Settings of the AVD">
+<h3 id="Working_Google_Play_Store">Working Google Play Store</h3><img src="/images/emulator.png" title="Working Google Play Store">
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/05/installing-google-play-on-android-emulator/" data-id="ci9ag6c8t001c23od1ln37o9d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-getting-auth-token-on-an-android-device" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/05/getting-auth-token-on-an-android-device/" class="article-date">
+  <time datetime="2012-04-30T22:18:00.000Z" itemprop="datePublished">2012-05-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/05/getting-auth-token-on-an-android-device/">Getting auth token on an Android device</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: <a href="http://www.toxicbakery.com/android-development/getting-google-auth-sub-tokens-in-your-android-applications/comment-page-1/#comment-238" target="_blank" rel="external">Toxic Bakery has already shown how to do it.</a></p>
+<p>My first attempt of using this code was successful and running on the device was easy - I simply added a button that invoked their method and it worked. However when I used this solution in my pet project it suddenly stopped working properly. The problem was happening when I was invalidating the auth token - recursive call would fail with IllegalStateException saying that calling that method on main thread would lead to a deadlock.</p>
+<p>At first I didn’t know what to do - I am, after all, Android newbie. I spent some time trying to find out why my first code worked and second didn’t and I found a single difference - I used minSdkVersion in AndroidManifest.xml for my pet project. I have no idea why this happens, I don’t even know where to start looking. But I created a simple workaround to solve the problem - I used AsyncTask to create a background loader and it works very well now, not to mention I’ve had a good time reading about threading in Android.</p>
+<p>The project with workaround can be found at <a href="https://github.com/piotrbudaeu/android-authtoken" target="_blank" rel="external">GitHub</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/05/getting-auth-token-on-an-android-device/" data-id="ci9ag6c8u001d23odjyclhjmq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-commenting-the-code-is-obsolete" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/04/commenting-the-code-is-obsolete/" class="article-date">
+  <time datetime="2012-04-11T10:01:00.000Z" itemprop="datePublished">2012-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/04/commenting-the-code-is-obsolete/">Commenting the code is obsolete</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Some time ago I had a few visits from fellow developers asking me questions about that I supposedly created. Since I obviously created some of that code months or years ago, I often couldn’t answer their questions because either my explanations were false (changed requirements) or I didn’t even know about that particular case (new code). It struck me that they came to me to ask these questions because I was placed as the author of the class in Javadoc…</p>
+<p>More recently I’ve been in situation when our team leader told us that we’re not putting enough comments in our classes and the we could at least provide the @author Javadoc comment (or ASDoc in that case) so that everyone knows who to talk to about this code.</p>
+<p>Revelation came to me sometime after that statement - why the hell do I need author information in a file?! I am checking in my code to a VCS which provides that information out of the box, moreover when the code changes it can report who changed the code! @author becomes meaningless after some time, VCS history does not - so use VCS instead.</p>
+<p>This also applies to other comments (IMO). Instead of creating some code and heavily comment what it does (bad) I prefer to write smaller methods that tell what they’re doing (good). The only thing I think a comment is necessary for is method arguments, but I could also omit them when I call my arguments with meaningful names. This does not apply to function arguments, because I have to comment that function arguments. But that can also lead to something like this:</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">* @param callback function to call with signature </span><br><span class="line">*                 &lt;code&gt;function(arg1:String, arg2:Object):void&lt;/code&gt;</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span><span class="params">(callback:Function)</span><span class="type">:void</span> </span>&#123;</span><br><span class="line">  callback(arg1, arg2, arg3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Summary: instead of extensive comments, write better code and use tools that you’re given.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/04/commenting-the-code-is-obsolete/" data-id="ci9ag6c8w001e23odwsr8mtb5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-heroku-and-java-from-newbie-to-beginner-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/03/heroku-and-java-from-newbie-to-beginner-part-2/" class="article-date">
+  <time datetime="2012-03-17T00:13:00.000Z" itemprop="datePublished">2012-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/03/heroku-and-java-from-newbie-to-beginner-part-2/">Heroku and Java - from newbie to beginner, part 2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="The_problem">The problem</h3><p>So after a few days I could get back to my little Recaps project. I started with checking logs and found something like this:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2012<span class="tag">-03-04T01</span><span class="pseudo">:52</span><span class="pseudo">:51+00</span><span class="pseudo">:00</span> <span class="tag">heroku</span><span class="attr_selector">[web.1]</span>: <span class="tag">Idling</span></span><br><span class="line">2012<span class="tag">-03-04T01</span><span class="pseudo">:52</span><span class="pseudo">:53+00</span><span class="pseudo">:00</span> <span class="tag">heroku</span><span class="attr_selector">[web.1]</span>: <span class="tag">Stopping</span> <span class="tag">process</span> <span class="tag">with</span> <span class="tag">SIGTERM</span></span><br><span class="line">2012<span class="tag">-03-04T01</span><span class="pseudo">:53</span><span class="pseudo">:03+00</span><span class="pseudo">:00</span> <span class="tag">heroku</span><span class="attr_selector">[web.1]</span>: <span class="tag">Error</span> <span class="tag">R12</span> (<span class="tag">Exit</span> <span class="tag">timeout</span>) <span class="tag">-</span>&gt; <span class="tag">Process</span> <span class="tag">failed</span> <span class="tag">to</span> <span class="tag">exit</span> <span class="tag">within</span> 10 <span class="tag">seconds</span> <span class="tag">of</span> <span class="tag">SIGTERM</span></span><br><span class="line">2012<span class="tag">-03-04T01</span><span class="pseudo">:53</span><span class="pseudo">:03+00</span><span class="pseudo">:00</span> <span class="tag">heroku</span><span class="attr_selector">[web.1]</span>: <span class="tag">Stopping</span> <span class="tag">process</span> <span class="tag">with</span> <span class="tag">SIGKILL</span></span><br></pre></td></tr></table></figure>
+<p>I don’t know what you think but whenever I see ‘Error’ in my logs I get concerned. So I decided to remove that nasty line. What transpired was not pleasant.</p>
+<h3 id="The_solution">The solution</h3><p>This seems like a simple problem. I started up with finding what this SIGTERM is all about. I knew it was Linux signal, I just wanted to know what Heroku is actually doing. So basically sometimes Heroku just sends SIGTERM to your process so that it’s allowed to gracefully shut down. This is very simple.</p>
+<p>As I mentioned in my last post, I decided to use Jetty instead of Grizzly. At first I decided to use jetty-runner to run my web application and it worked fine, resources were scanned as Jersey servlet started up. Deploying to Heroku was also easy and with modified Procfile the application started up.</p>
+<p>Nevertheless the application did not react correctly to SIGTERM, so without delving deeper in jetty-runner configuration, I decided to just use the embedded Jetty server.<br>It’s very simple and running foreman start made the application actually start. So without further consideration I just deployed the changed application to Heroku. To check whether the error appears again, after first startup I just did heroku restart and connected to logs in another terminal. But the exit timeout error message was still there. My mistake there - I did not test the application whether it will exit properly when using foreman. So again, foreman start and then ctrl+c just to see what happens (later I tried kill -s TERM procand got similar output):</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">pbu@pbudesk ~/recaps $ foreman start</span><br><span class="line">21:57:27 web.1     | started with pid 9603</span><br><span class="line">21:57:27 web.1     | 0    [main] INFO  org.eclipse.jetty.server.Server  - jetty-8.1.1.v20120215</span><br><span class="line">21:57:27 web.1     | 110  [main] INFO  org.eclipse.jetty.webapp.StandardDescriptorProcessor  - NO JSP Support for /, did not find org.apache.jasper.servlet.JspServlet</span><br><span class="line">21:57:27 web.1     | 132  [main] INFO  org.eclipse.jetty.server.handler.ContextHandler  - started o.e.j.w.WebAppContext</span><span class="expression">&#123;/,<span class="variable">file</span>:<span class="end-block">/home</span><span class="end-block">/pbu</span><span class="end-block">/Devel</span><span class="end-block">/IdeaProjects</span><span class="end-block">/recaps</span><span class="end-block">/webmodule</span><span class="end-block">/src</span><span class="end-block">/main</span><span class="end-block">/webapp</span>/&#125;</span><span class="xml">,webmodule/src/main/webapp</span><br><span class="line">21:57:27 web.1     | 133  [main] INFO  org.eclipse.jetty.server.handler.ContextHandler  - started o.e.j.w.WebAppContext</span><span class="expression">&#123;/,<span class="variable">file</span>:<span class="end-block">/home</span><span class="end-block">/pbu</span><span class="end-block">/Devel</span><span class="end-block">/IdeaProjects</span><span class="end-block">/recaps</span><span class="end-block">/webmodule</span><span class="end-block">/src</span><span class="end-block">/main</span><span class="end-block">/webapp</span>/&#125;</span><span class="xml">,webmodule/src/main/webapp</span><br><span class="line">21:57:27 web.1     | 183  [main] INFO  org.eclipse.jetty.server.AbstractConnector  - Started SelectChannelConnector@0.0.0.0:5000</span><br><span class="line">^CSIGINT received</span><br><span class="line">21:57:57 system    | sending SIGTERM to all processes</span><br><span class="line">21:57:57 system    | sending SIGTERM to pid 9603</span><br><span class="line">21:57:57 web.1     | process terminated</span><br><span class="line">pbu@pbudesk ~/recaps $</span></span><br></pre></td></tr></table></figure>
+<p>OK, so when foreman receives SIGINT it sends SIGTERM to all processes, cool - probably Heroku dynos behave the same. Still, it wasn’t a graceful shutdown, but Jetty has a <a href="http://docs.codehaus.org/display/JETTY/How+to+gracefully+shutdown" target="_blank" rel="external">graceful shutdown section</a> that mentions two nice properties: gracefulShutdown and stopAtShutdown. The modified class looks like this:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serve</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> port = Integer.valueOf(System.getenv(<span class="string">"PORT"</span>));</span><br><span class="line"></span><br><span class="line">        Server jetty = <span class="keyword">new</span> Server(port);</span><br><span class="line"></span><br><span class="line">        WebAppContext context = <span class="keyword">new</span> WebAppContext();</span><br><span class="line">        context.setContextPath(<span class="string">"/"</span>);</span><br><span class="line">        String webapp = <span class="string">"webmodule/src/main/webapp"</span>;</span><br><span class="line">        context.setWar(webapp);</span><br><span class="line">        context.setResourceBase(webapp);</span><br><span class="line"></span><br><span class="line">        jetty.setHandler(context);</span><br><span class="line"></span><br><span class="line">        jetty.setGracefulShutdown(<span class="number">1000</span>);</span><br><span class="line">        jetty.setStopAtShutdown(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        jetty.start();</span><br><span class="line">        jetty.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Running foreman again and using ctrl+c proves this to be working! Great!</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">pbu@pbudesk ~/recaps $ foreman start</span><br><span class="line">22:11:47 web.1     | started with pid 9863</span><br><span class="line">22:11:47 web.1     | 0    [main] INFO  org.eclipse.jetty.server.Server  - jetty-8.1.1.v20120215</span><br><span class="line">22:11:47 web.1     | 110  [main] INFO  org.eclipse.jetty.webapp.StandardDescriptorProcessor  - NO JSP Support for /, did not find org.apache.jasper.servlet.JspServlet</span><br><span class="line">22:11:47 web.1     | 131  [main] INFO  org.eclipse.jetty.server.handler.ContextHandler  - started o.e.j.w.WebAppContext</span><span class="expression">&#123;/,<span class="variable">file</span>:<span class="end-block">/home</span><span class="end-block">/pbu</span><span class="end-block">/Devel</span><span class="end-block">/IdeaProjects</span><span class="end-block">/recaps</span><span class="end-block">/webmodule</span><span class="end-block">/src</span><span class="end-block">/main</span><span class="end-block">/webapp</span>/&#125;</span><span class="xml">,webmodule/src/main/webapp</span><br><span class="line">22:11:47 web.1     | 132  [main] INFO  org.eclipse.jetty.server.handler.ContextHandler  - started o.e.j.w.WebAppContext</span><span class="expression">&#123;/,<span class="variable">file</span>:<span class="end-block">/home</span><span class="end-block">/pbu</span><span class="end-block">/Devel</span><span class="end-block">/IdeaProjects</span><span class="end-block">/recaps</span><span class="end-block">/webmodule</span><span class="end-block">/src</span><span class="end-block">/main</span><span class="end-block">/webapp</span>/&#125;</span><span class="xml">,webmodule/src/main/webapp</span><br><span class="line">22:11:48 web.1     | 183  [main] INFO  org.eclipse.jetty.server.AbstractConnector  - Started SelectChannelConnector@0.0.0.0:5000</span><br><span class="line">^C22:11:49 web.1     | 1969 [Thread-1] INFO  org.eclipse.jetty.server.Server  - Graceful shutdown SelectChannelConnector@0.0.0.0:5000</span><br><span class="line">22:11:49 web.1     | 1970 [Thread-1] INFO  org.eclipse.jetty.server.Server  - Graceful shutdown o.e.j.w.WebAppContext</span><span class="expression">&#123;/,<span class="variable">file</span>:<span class="end-block">/home</span><span class="end-block">/pbu</span><span class="end-block">/Devel</span><span class="end-block">/IdeaProjects</span><span class="end-block">/recaps</span><span class="end-block">/webmodule</span><span class="end-block">/src</span><span class="end-block">/main</span><span class="end-block">/webapp</span>/&#125;</span><span class="xml">,webmodule/src/main/webapp</span><br><span class="line">SIGINT received</span><br><span class="line">22:11:49 system    | sending SIGTERM to all processes</span><br><span class="line">22:11:49 system    | sending SIGTERM to pid 9863</span><br><span class="line">22:11:50 web.1     | 2982 [Thread-1] INFO  org.eclipse.jetty.server.handler.ContextHandler  - stopped o.e.j.w.WebAppContext</span><span class="expression">&#123;/,<span class="variable">file</span>:<span class="end-block">/home</span><span class="end-block">/pbu</span><span class="end-block">/Devel</span><span class="end-block">/IdeaProjects</span><span class="end-block">/recaps</span><span class="end-block">/webmodule</span><span class="end-block">/src</span><span class="end-block">/main</span><span class="end-block">/webapp</span>/&#125;</span><span class="xml">,webmodule/src/main/webapp</span><br><span class="line">22:11:50 web.1     | process terminated</span><br><span class="line">pbu@pbudesk ~/recaps $</span><br><span class="line">So off to deploy it to the cloud! Again, deploy, heroku restart and watch logs... but it doesn't work.</span></span><br></pre></td></tr></table></figure>
+<h3 id="Different_way">Different way</h3><p>After initial failure I’ve tried a different approach. I found out that you can register shutdown hooks - very easy thing. To do that, just register a new thread with Runtime.getRuntime().addShutdownHook(Thread) method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serve</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"Shutting down by shutdown hook"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">int</span> port = Integer.valueOf(System.getenv(<span class="string">"PORT"</span>));</span><br><span class="line"></span><br><span class="line">        Server jetty = <span class="keyword">new</span> Server(port);</span><br><span class="line"></span><br><span class="line">        WebAppContext context = <span class="keyword">new</span> WebAppContext();</span><br><span class="line">        context.setContextPath(<span class="string">"/"</span>);</span><br><span class="line">        String webapp = <span class="string">"webmodule/src/main/webapp"</span>;</span><br><span class="line">        context.setWar(webapp);</span><br><span class="line">        context.setResourceBase(webapp);</span><br><span class="line"></span><br><span class="line">        jetty.setHandler(context);</span><br><span class="line"></span><br><span class="line">        jetty.setGracefulShutdown(<span class="number">1000</span>);</span><br><span class="line">        jetty.setStopAtShutdown(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        jetty.start();</span><br><span class="line">        jetty.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Final test with foreman proves it to be working too, however once again it doesn’t work on Heroku.</p>
+<p>At this point, I have no idea how to get rid of that timeout. It is not very important, I just wanted to check whether I can somehow react to it, but to no avail. For now I guess I’ll just contact Heroku, maybe they’ll help. Another option could be trying embedded Tomcat, but maybe at a later time. For now, I have other things to do, like checking out <a href="http://jelastic.com/" target="_blank" rel="external">Jelastic</a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/03/heroku-and-java-from-newbie-to-beginner-part-2/" data-id="ci9ag6c8z001f23od63c5ufiv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-some-dos-and-donts-for-rest" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/03/some-dos-and-donts-for-rest/" class="article-date">
+  <time datetime="2012-03-05T14:00:00.000Z" itemprop="datePublished">2012-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/03/some-dos-and-donts-for-rest/">Some DOs and DON&#39;Ts for ReST</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I’ve been googling around about ReST and how URIs should look like and I found this particular gem. It’s available at <a href="http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs/1619677#1619677" target="_blank" rel="external">Stack Overflow</a>, but I just wanted it posted here for reference. Of course all credits go to <a href="http://stackoverflow.com/users/90723/bob-aman" target="_blank" rel="external">Bob Aman</a>, the author of said answer. So here goes.</p>
+<h3 id="General_principles_for_good_URI_design:">General principles for good URI design:</h3><blockquote><p>Don’t use query parameters to alter state<br>Don’t use mixed-case paths if you can help it; lowercase is best<br>Don’t use implementation-specific extensions in your URIs (.php, .py, .pl, etc.)<br>Don’t fall into RPC with your URIs<br>Do limit your URI space as much as possible<br>Do keep path segments short<br>Do prefer either /resource or /resource/; create 301 redirects from the one you don’t use<br>Do use query parameters for sub-selection of a resource; i.e. pagination, search queries<br>Do move stuff out of the URI that should be in an HTTP header or a body</p>
+</blockquote>
+<h3 id="General_principles_for_HTTP_method_choice:">General principles for HTTP method choice:</h3><blockquote><p>Don’t ever use GET to alter state; this is a great way to have the Googlebot ruin your day<br>Don’t use PUT unless you are updating an entire resource<br>Don’t use PUT unless you can also legitimately do a GET on the same URI<br>Don’t use POST to retrieve information that is long-lived or that might be reasonable to cache<br>Don’t perform an operation that is not idempotent with PUT<br>Do use GET for as much as possible<br>Do use POST in preference to PUT when in doubt<br>Do use POST whenever you have to do something that feels RPC-like<br>Do use PUT for classes of resources that are larger or hierarchical<br>Do use DELETE in preference to POST to remove resources<br>Do use GET for things like calculations, unless your input is large, in which case use POST</p>
+</blockquote>
+<h3 id="General_principles_of_web_service_design_with_HTTP:">General principles of web service design with HTTP:</h3><blockquote><p>Don’t put metadata in the body of a response that should be in a header<br>Don’t put metadata in a separate resource unless including it would create significant overhead<br>Do use the appropriate status code<br>201 Created after creating a resource; resource must exist at the time the response is sent<br>202 Accepted after performing an operation successfully or creating a resource asynchronously<br>400 Bad Request when someone does an operation on data that’s clearly bogus; for your application this could be a validation error; generally reserve 500 for uncaught exceptions<br>403 Forbidden when someone accesses your API in a way that might be malicious or if they aren’t authorized<br>405 Method Not Allowed when someone uses POST when they should have used PUT, etc<br>413 Request Entity Too Large when someone attempts to send you an unacceptably large file<br>418 I’m a teapot when attempting to brew coffee with a teapot<br>Do use caching headers whenever you can<br>ETag headers are good when you can easily reduce a resource to a hash value<br>Last-Modified should indicate to you that keeping around a timestamp of when resources are updated is a good idea<br>Cache-Control and Expires should be given sensible values<br>Do everything you can to honor caching headers in a request (If-None-Modified, If-Modified-Since)<br>Do use redirects when they make sense, but these should be rare for a web service</p>
+</blockquote>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2012/03/some-dos-and-donts-for-rest/" data-id="ci9ag6c91001g23odybwnigeg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+          </li>
+        
+          <li>
+            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+          </li>
+        
+          <li>
+            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+          </li>
+        
+          <li>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/google-play-store/">google play store</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/hardware/">hardware</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/api/" style="font-size: 10px;">api</a><a href="/tags/cloud/" style="font-size: 10px;">cloud</a><a href="/tags/google-play/" style="font-size: 10px;">google play</a><a href="/tags/openshift/" style="font-size: 10px;">openshift</a><a href="/tags/play/" style="font-size: 10px;">play</a><a href="/tags/play-store-api/" style="font-size: 10px;">play store api</a><a href="/tags/sbt/" style="font-size: 10px;">sbt</a><a href="/tags/scala/" style="font-size: 20px;">scala</a><a href="/tags/spray/" style="font-size: 10px;">spray</a><a href="/tags/store/" style="font-size: 10px;">store</a><a href="/tags/websocket/" style="font-size: 10px;">websocket</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 John Doe<br>
+      <a href="http://twitter.com/jr0cket" target="_blank">@jr0cket</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="http://jr0cket.co.uk/developer-guides" class="mobile-nav-link">DevGuides</a>
+  
+    <a href="http://jr0cket.co.uk/slides" class="mobile-nav-link">Slides</a>
+  
+    <a href="/workshops" class="mobile-nav-link">Workshops</a>
+  
+    <a href="/clojure" class="mobile-nav-link">Clojure</a>
+  
+    <a href="/hexo" class="mobile-nav-link">Hexo</a>
+  
+    <a href="http://ubuntu.jr0cket.co.uk" class="mobile-nav-link">Ubuntu</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+<div id="scroll2top" style="position:fixed;bottom:150px;right:50px;cursor: pointer;Z-index:9999">
+<a title="返回顶部" href="#"><img src="/scroll2top/scrollup.png"/></a>
+</div>
+<script src="/scroll2top/scroll2top.js"></script>
+
+
+
+  </div>
+</body>
+</html>
