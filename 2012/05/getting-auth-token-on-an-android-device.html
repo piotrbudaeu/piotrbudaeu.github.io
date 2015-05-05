@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>GitFlow Intellij Idea plugin | Software Development Ramblings</title>
+  <title>Getting auth token on an Android device | Software Development Ramblings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="I am creating a few side projects currently and I use git-flow Git extension for each of them, but I lack the support from Intellij Idea in this regard – mainly the starting and stopping of features a">
+  <meta name="description" content="I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: Toxic Bakery has a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitFlow Intellij Idea plugin">
-<meta property="og:url" content="http://www.piotrbuda.eu/2012/08/gitflow-intellij-idea-plugin/index.html">
+<meta property="og:title" content="Getting auth token on an Android device">
+<meta property="og:url" content="http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device.html">
 <meta property="og:site_name" content="Software Development Ramblings">
-<meta property="og:description" content="I am creating a few side projects currently and I use git-flow Git extension for each of them, but I lack the support from Intellij Idea in this regard – mainly the starting and stopping of features a">
+<meta property="og:description" content="I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: Toxic Bakery has a">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitFlow Intellij Idea plugin">
-<meta name="twitter:description" content="I am creating a few side projects currently and I use git-flow Git extension for each of them, but I lack the support from Intellij Idea in this regard – mainly the starting and stopping of features a">
+<meta name="twitter:title" content="Getting auth token on an Android device">
+<meta name="twitter:description" content="I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: Toxic Bakery has a">
 <meta name="twitter:creator" content="@piotrbuda">
   
     <link rel="alternative" href="/atom.xml" title="Software Development Ramblings" type="application/atom+xml">
@@ -76,10 +76,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-gitflow-intellij-idea-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-getting-auth-token-on-an-android-device" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2012/08/gitflow-intellij-idea-plugin/" class="article-date">
-  <time datetime="2012-08-06T11:37:00.000Z" itemprop="datePublished">2012-08-06</time>
+    <a href="/2012/05/getting-auth-token-on-an-android-device.html" class="article-date">
+  <time datetime="2012-04-30T22:18:00.000Z" itemprop="datePublished">2012-05-01</time>
 </a>
     
   </div>
@@ -90,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      GitFlow Intellij Idea plugin
+      Getting auth token on an Android device
     </h1>
   
 
@@ -98,17 +98,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>I am creating a few side projects currently and I use git-flow Git extension for each of them, but I lack the support from Intellij Idea in this regard – mainly the starting and stopping of features and releases.</p>
-<p>So because of that I’ve started a small project to include said functionality in Idea. It’s nothing major as apparently Jetbrains will include such plugin in some version of Intellij, but I need it now and I’m interested in how to write plugins for Idea<br>What will the plugin be able to do?</p>
-<p>git flow init -d<br>git flow feature start/finish<br>git flow release start/finish<br>The first version I will release will be able to do 1 and 2 while option 3 will be available at some later time. But I don’t know yet when I will release it, so stay tuned if you’re interested.</p>
-<p>The project is of course at <a href="https://github.com/pbuda/gitflowidea" target="_blank" rel="external">GitHub</a></p>
+        <p>I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: <a href="http://www.toxicbakery.com/android-development/getting-google-auth-sub-tokens-in-your-android-applications/comment-page-1/#comment-238" target="_blank" rel="external">Toxic Bakery has already shown how to do it.</a></p>
+<p>My first attempt of using this code was successful and running on the device was easy - I simply added a button that invoked their method and it worked. However when I used this solution in my pet project it suddenly stopped working properly. The problem was happening when I was invalidating the auth token - recursive call would fail with IllegalStateException saying that calling that method on main thread would lead to a deadlock.</p>
+<p>At first I didn’t know what to do - I am, after all, Android newbie. I spent some time trying to find out why my first code worked and second didn’t and I found a single difference - I used minSdkVersion in AndroidManifest.xml for my pet project. I have no idea why this happens, I don’t even know where to start looking. But I created a simple workaround to solve the problem - I used AsyncTask to create a background loader and it works very well now, not to mention I’ve had a good time reading about threading in Android.</p>
+<p>The project with workaround can be found at <a href="https://github.com/piotrbudaeu/android-authtoken" target="_blank" rel="external">GitHub</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.piotrbuda.eu/2012/08/gitflow-intellij-idea-plugin/" data-id="ci9ah5lny000u6qodj2mu75z6" class="article-share-link">Share</a>
+      <a data-url="http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device.html" data-id="ci9axxg6q001c2l1vtvcwntrh" class="article-share-link">Share</a>
       
-        <a href="http://www.piotrbuda.eu/2012/08/gitflow-intellij-idea-plugin/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -117,19 +117,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2012/09/twittory-lessons-learned-dont-mock-iterator/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2012/05/installing-google-play-on-android-emulator.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Twittory lessons learned - don&#39;t mock Iterator
+          Installing Google Play on Android Emulator
         
       </div>
     </a>
   
   
-    <a href="/2012/07/play-store-api-on-github-dot-com/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2012/04/commenting-the-code-is-obsolete.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Play Store API on GitHub.com</div>
+      <div class="article-nav-title">Commenting the code is obsolete</div>
     </a>
   
 </nav>
@@ -154,43 +154,43 @@
       <ul>
         
           <li>
-            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000.html">Microsoft Natural Ergonomic Keyboard 4000</a>
           </li>
         
           <li>
-            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+            <a href="/2013/04/scalawebsocket.html">ScalaWebSocket</a>
           </li>
         
           <li>
-            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift.html">Trying to deploy Scala app on OpenShift</a>
           </li>
         
           <li>
-            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+            <a href="/2013/02/angularjs-directive-for-password-matching.html">Angular directive for password matching</a>
           </li>
         
           <li>
-            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+            <a href="/2013/02/my-first-month-at-softwaremill.html">My first month at SoftwareMill</a>
           </li>
         
           <li>
-            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem.html">Scala and Android: AsyncTask implementation problem</a>
           </li>
         
           <li>
-            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+            <a href="/2012/10/warsjawa-2012.html">Warsjawa 2012</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2.html">Scala case classes and annotations, part 2</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1.html">Scala case classes and annotations, part 1</a>
           </li>
         
           <li>
-            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one.html">Function Programming Principles in Scala course - week one</a>
           </li>
         
       </ul>
@@ -238,7 +238,7 @@
 <script>
   var disqus_shortname = 'piotrbuda';
   
-  var disqus_url = 'http://www.piotrbuda.eu/2012/08/gitflow-intellij-idea-plugin/';
+  var disqus_url = 'http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device.html';
   
   (function(){
     var dsq = document.createElement('script');

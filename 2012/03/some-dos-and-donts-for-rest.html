@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Visitor Pattern | Software Development Ramblings</title>
+  <title>Some DOs and DON&#39;Ts for ReST | Software Development Ramblings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…">
+  <meta name="description" content="I’ve been googling around about ReST and how URIs should look like and I found this particular gem. It’s available at Stack Overflow, but I just wanted it posted here for reference. Of course all cred">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Visitor Pattern">
-<meta property="og:url" content="http://www.piotrbuda.eu/2011/12/visitor-pattern/index.html">
+<meta property="og:title" content="Some DOs and DON'Ts for ReST">
+<meta property="og:url" content="http://www.piotrbuda.eu/2012/03/some-dos-and-donts-for-rest.html">
 <meta property="og:site_name" content="Software Development Ramblings">
-<meta property="og:description" content="Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…">
+<meta property="og:description" content="I’ve been googling around about ReST and how URIs should look like and I found this particular gem. It’s available at Stack Overflow, but I just wanted it posted here for reference. Of course all cred">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Visitor Pattern">
-<meta name="twitter:description" content="Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…">
+<meta name="twitter:title" content="Some DOs and DON'Ts for ReST">
+<meta name="twitter:description" content="I’ve been googling around about ReST and how URIs should look like and I found this particular gem. It’s available at Stack Overflow, but I just wanted it posted here for reference. Of course all cred">
 <meta name="twitter:creator" content="@piotrbuda">
   
     <link rel="alternative" href="/atom.xml" title="Software Development Ramblings" type="application/atom+xml">
@@ -76,10 +76,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-visitor-pattern" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-some-dos-and-donts-for-rest" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2011/12/visitor-pattern/" class="article-date">
-  <time datetime="2011-12-15T15:09:00.000Z" itemprop="datePublished">2011-12-15</time>
+    <a href="/2012/03/some-dos-and-donts-for-rest.html" class="article-date">
+  <time datetime="2012-03-05T14:00:00.000Z" itemprop="datePublished">2012-03-05</time>
 </a>
     
   </div>
@@ -90,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Visitor Pattern
+      Some DOs and DON&#39;Ts for ReST
     </h1>
   
 
@@ -98,19 +98,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Some time ago I was supposed to add a boolean flag to a DTO. Nothing fancy until I found out that domain stuff related to that flag is not really defined and is based on actual type of some property…</p>
-<p>My first idea was to simply use <em>instanceof</em> to check whether the type of that property should change the flag to <em>true</em> or <em>false</em>. I think I don’t have to tell you this looks ugly at best…</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> myFlag = object.getProperty() <span class="keyword">instanceof</span> TrueFlag;</span><br></pre></td></tr></table></figure>
-<p>Even if it’s not ugly, when more and more policies appear, this condition can change making a long, hard to maintain and read piece of code. Then a friend suggested to use the <a href="http://en.wikipedia.org/wiki/Visitor_pattern" target="_blank" rel="external">Visitor Pattern</a>. It’s a very simple pattern that basically allows to add operations to an existing object without modifying the object itself.</p>
-<p>What I did was that I implemented the visitor and for each accept(object) method I simply set the required flag to true or false. Easy, clean solution that is easy to maintain, test and read.</p>
-<p>So, when you try to do something with your existing object, instead of adding new methods to it, check out the <a href="http://en.wikipedia.org/wiki/Visitor_pattern" target="_blank" rel="external">Visitor Pattern</a> - maybe it’ll help you.</p>
-
+        <p>I’ve been googling around about ReST and how URIs should look like and I found this particular gem. It’s available at <a href="http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs/1619677#1619677" target="_blank" rel="external">Stack Overflow</a>, but I just wanted it posted here for reference. Of course all credits go to <a href="http://stackoverflow.com/users/90723/bob-aman" target="_blank" rel="external">Bob Aman</a>, the author of said answer. So here goes.</p>
+<h3 id="General_principles_for_good_URI_design:">General principles for good URI design:</h3><blockquote><p>Don’t use query parameters to alter state<br>Don’t use mixed-case paths if you can help it; lowercase is best<br>Don’t use implementation-specific extensions in your URIs (.php, .py, .pl, etc.)<br>Don’t fall into RPC with your URIs<br>Do limit your URI space as much as possible<br>Do keep path segments short<br>Do prefer either /resource or /resource/; create 301 redirects from the one you don’t use<br>Do use query parameters for sub-selection of a resource; i.e. pagination, search queries<br>Do move stuff out of the URI that should be in an HTTP header or a body</p>
+</blockquote>
+<h3 id="General_principles_for_HTTP_method_choice:">General principles for HTTP method choice:</h3><blockquote><p>Don’t ever use GET to alter state; this is a great way to have the Googlebot ruin your day<br>Don’t use PUT unless you are updating an entire resource<br>Don’t use PUT unless you can also legitimately do a GET on the same URI<br>Don’t use POST to retrieve information that is long-lived or that might be reasonable to cache<br>Don’t perform an operation that is not idempotent with PUT<br>Do use GET for as much as possible<br>Do use POST in preference to PUT when in doubt<br>Do use POST whenever you have to do something that feels RPC-like<br>Do use PUT for classes of resources that are larger or hierarchical<br>Do use DELETE in preference to POST to remove resources<br>Do use GET for things like calculations, unless your input is large, in which case use POST</p>
+</blockquote>
+<h3 id="General_principles_of_web_service_design_with_HTTP:">General principles of web service design with HTTP:</h3><blockquote><p>Don’t put metadata in the body of a response that should be in a header<br>Don’t put metadata in a separate resource unless including it would create significant overhead<br>Do use the appropriate status code<br>201 Created after creating a resource; resource must exist at the time the response is sent<br>202 Accepted after performing an operation successfully or creating a resource asynchronously<br>400 Bad Request when someone does an operation on data that’s clearly bogus; for your application this could be a validation error; generally reserve 500 for uncaught exceptions<br>403 Forbidden when someone accesses your API in a way that might be malicious or if they aren’t authorized<br>405 Method Not Allowed when someone uses POST when they should have used PUT, etc<br>413 Request Entity Too Large when someone attempts to send you an unacceptably large file<br>418 I’m a teapot when attempting to brew coffee with a teapot<br>Do use caching headers whenever you can<br>ETag headers are good when you can easily reduce a resource to a hash value<br>Last-Modified should indicate to you that keeping around a timestamp of when resources are updated is a good idea<br>Cache-Control and Expires should be given sensible values<br>Do everything you can to honor caching headers in a request (If-None-Modified, If-Modified-Since)<br>Do use redirects when they make sense, but these should be rare for a web service</p>
+</blockquote>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.piotrbuda.eu/2011/12/visitor-pattern/" data-id="ci9ah5lmq00006qod5y5mjiic" class="article-share-link">Share</a>
+      <a data-url="http://www.piotrbuda.eu/2012/03/some-dos-and-donts-for-rest.html" data-id="ci9axxg6v001f2l1vvp94x508" class="article-share-link">Share</a>
       
-        <a href="http://www.piotrbuda.eu/2011/12/visitor-pattern/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://www.piotrbuda.eu/2012/03/some-dos-and-donts-for-rest.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -119,15 +119,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2012/02/heroku-and-java-from-newbie-to-beginner-part-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2012/03/heroku-and-java-from-newbie-to-beginner-part-2.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Heroku and Java - from newbie to beginner, part 1
+          Heroku and Java - from newbie to beginner, part 2
         
       </div>
     </a>
   
+  
+    <a href="/2012/02/heroku-and-java-from-newbie-to-beginner-part-1.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Heroku and Java - from newbie to beginner, part 1</div>
+    </a>
   
 </nav>
 
@@ -151,43 +156,43 @@
       <ul>
         
           <li>
-            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000.html">Microsoft Natural Ergonomic Keyboard 4000</a>
           </li>
         
           <li>
-            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+            <a href="/2013/04/scalawebsocket.html">ScalaWebSocket</a>
           </li>
         
           <li>
-            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift.html">Trying to deploy Scala app on OpenShift</a>
           </li>
         
           <li>
-            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+            <a href="/2013/02/angularjs-directive-for-password-matching.html">Angular directive for password matching</a>
           </li>
         
           <li>
-            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+            <a href="/2013/02/my-first-month-at-softwaremill.html">My first month at SoftwareMill</a>
           </li>
         
           <li>
-            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem.html">Scala and Android: AsyncTask implementation problem</a>
           </li>
         
           <li>
-            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+            <a href="/2012/10/warsjawa-2012.html">Warsjawa 2012</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2.html">Scala case classes and annotations, part 2</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1.html">Scala case classes and annotations, part 1</a>
           </li>
         
           <li>
-            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one.html">Function Programming Principles in Scala course - week one</a>
           </li>
         
       </ul>
@@ -235,7 +240,7 @@
 <script>
   var disqus_shortname = 'piotrbuda';
   
-  var disqus_url = 'http://www.piotrbuda.eu/2011/12/visitor-pattern/';
+  var disqus_url = 'http://www.piotrbuda.eu/2012/03/some-dos-and-donts-for-rest.html';
   
   (function(){
     var dsq = document.createElement('script');

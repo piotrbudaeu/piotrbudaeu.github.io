@@ -3,20 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Scala and Android: AsyncTask implementation problem | Software Development Ramblings</title>
+  <title>Play Store on Emulator and morals | Software Development Ramblings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="So I recently started some really simple Scala development for Android. However because I’m a very lucky person, I stumbled upon my first problem the very first moment I tried doing something nice.
-Th">
+  <meta name="description" content="I’ve recently noticed that I have some traffic to my blog from some question posted on Stack Overflow. I checked out the question out of curiosity and what I found made me wonder, particularly this an">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scala and Android: AsyncTask implementation problem">
-<meta property="og:url" content="http://www.piotrbuda.eu/2012/12/scala-and-android-asynctask-implementation-problem/index.html">
+<meta property="og:title" content="Play Store on Emulator and morals">
+<meta property="og:url" content="http://www.piotrbuda.eu/2012/06/play-store-on-emulator-and-morals.html">
 <meta property="og:site_name" content="Software Development Ramblings">
-<meta property="og:description" content="So I recently started some really simple Scala development for Android. However because I’m a very lucky person, I stumbled upon my first problem the very first moment I tried doing something nice.
-Th">
+<meta property="og:description" content="I’ve recently noticed that I have some traffic to my blog from some question posted on Stack Overflow. I checked out the question out of curiosity and what I found made me wonder, particularly this an">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scala and Android: AsyncTask implementation problem">
-<meta name="twitter:description" content="So I recently started some really simple Scala development for Android. However because I’m a very lucky person, I stumbled upon my first problem the very first moment I tried doing something nice.
-Th">
+<meta name="twitter:title" content="Play Store on Emulator and morals">
+<meta name="twitter:description" content="I’ve recently noticed that I have some traffic to my blog from some question posted on Stack Overflow. I checked out the question out of curiosity and what I found made me wonder, particularly this an">
 <meta name="twitter:creator" content="@piotrbuda">
   
     <link rel="alternative" href="/atom.xml" title="Software Development Ramblings" type="application/atom+xml">
@@ -79,10 +76,10 @@ Th">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-scala-and-android-asynctask-implementation-problem" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-play-store-on-emulator-and-morals" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2012/12/scala-and-android-asynctask-implementation-problem/" class="article-date">
-  <time datetime="2012-12-12T12:06:00.000Z" itemprop="datePublished">2012-12-12</time>
+    <a href="/2012/06/play-store-on-emulator-and-morals.html" class="article-date">
+  <time datetime="2012-06-26T09:30:00.000Z" itemprop="datePublished">2012-06-26</time>
 </a>
     
   </div>
@@ -93,7 +90,7 @@ Th">
         
   
     <h1 class="article-title" itemprop="name">
-      Scala and Android: AsyncTask implementation problem
+      Play Store on Emulator and morals
     </h1>
   
 
@@ -101,18 +98,17 @@ Th">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>So I recently started some really simple Scala development for Android. However because I’m a very lucky person, I stumbled upon my first problem the very first moment I tried doing something nice.</p>
-<p>There is a neat way for doing things in Android with AsyncTasks - this cool utility abstracts away the need for creation and management of threads for invoking stuff that would block UI thread. For more info just go to AsyncTask documentation.</p>
-<p>So I tried doing something with this cool AsyncTask and here’s the class definition:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ObtainRequestTokenTask() extends AsyncTask[String, Void, String] &#123;</span><br><span class="line">...</span><br><span class="line">override protected def doInBackground(p1: String*): String = &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>The major problem here is that this thing compiles. Running this on Android emulator I got an exception suggesting that doInBackground is not implemented (it’s abstract in AsyncTask)… So where’s the problem?</p>
-<p>Googling about this I found <a href="https://issues.scala-lang.org/browse/SI-1459" target="_blank" rel="external">this bug</a>. I won’t go into detail, however to make this code work you have to actually change the signature of doInBackground. Instead of String input, you need AnyRef and just cast params to the desired class.</p>
-<p>For me this now looks something like this:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class ObtainRequestTokenTask() extends AsyncTask[AnyRef, Void, String] &#123;</span><br><span class="line">...</span><br><span class="line">override protected def doInBackground(p1: AnyRef*): String = &#123;</span><br><span class="line">p1.head.asInstanceOf[String]</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>I’ve recently noticed that I have some traffic to my blog from <a href="http://stackoverflow.com/questions/11154222/google-play-in-android-4-0-emulator" target="_blank" rel="external">some question posted on Stack Overflow</a>. I checked out the question out of curiosity and what I found made me wonder, particularly <a href="http://stackoverflow.com/a/11155703/840794" target="_blank" rel="external">this answer</a>. I don’t have enough rep to comment on other answers, so I decided to rant here a little.</p>
+<p>I understand that Google doesn’t want their Play Store available on devices that are not licensed, I don’t pretend to know why, I can only guess. But I don’t want to be called a software pirate. I did not rip Play Store from a device nor I distribute it. The Play Store apk that I used comes from CyanogenMod page, AFAIK the Google apps package for CM is the only way for their users to update Google apps. Is this also pirating?  If so, we have SO MANY pirates in Android world then! There are more than <a href="http://stats.cyanogenmod.com/" target="_blank" rel="external">one million CM users</a> out there so that means more than one million people pirate Play Store. Not to mention some Kindle Fire users who install Play Store on their rooted devices.</p>
+<p>I am no lawyer, but after reading Google Play EULA several times, I don’t find any point that prohibits me from installing it on emulator. Now Google did make an attempt to limit Play Store use on emulator (even if not on purpose) by using DRM protection which makes Google Play not work on emulator anyway - <a href="http://www.piotrbuda.eu/2012/06/trying-to-solve-error-491-in-play-store.html" target="_blank" rel="external">you can’t download apps!</a></p>
+<p>Rant over, I just needed to vent.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.piotrbuda.eu/2012/12/scala-and-android-asynctask-implementation-problem/" data-id="ci9ah5lnn000o6qod8519e5td" class="article-share-link">Share</a>
+      <a data-url="http://www.piotrbuda.eu/2012/06/play-store-on-emulator-and-morals.html" data-id="ci9axxg6o001a2l1vhrmk0d8z" class="article-share-link">Share</a>
       
-        <a href="http://www.piotrbuda.eu/2012/12/scala-and-android-asynctask-implementation-problem/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://www.piotrbuda.eu/2012/06/play-store-on-emulator-and-morals.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -121,19 +117,19 @@ Th">
     
 <nav id="article-nav">
   
-    <a href="/2013/02/my-first-month-at-softwaremill/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2012/07/play-store-api-on-github-dot-com.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          My first month at SoftwareMill
+          Play Store API on GitHub.com
         
       </div>
     </a>
   
   
-    <a href="/2012/10/warsjawa-2012/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2012/06/trying-to-solve-error-491-in-play-store-on-android-emulator.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Warsjawa 2012</div>
+      <div class="article-nav-title">Trying to solve Error 491 in Play Store on Android Emulator</div>
     </a>
   
 </nav>
@@ -158,43 +154,43 @@ Th">
       <ul>
         
           <li>
-            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000.html">Microsoft Natural Ergonomic Keyboard 4000</a>
           </li>
         
           <li>
-            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+            <a href="/2013/04/scalawebsocket.html">ScalaWebSocket</a>
           </li>
         
           <li>
-            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift.html">Trying to deploy Scala app on OpenShift</a>
           </li>
         
           <li>
-            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+            <a href="/2013/02/angularjs-directive-for-password-matching.html">Angular directive for password matching</a>
           </li>
         
           <li>
-            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+            <a href="/2013/02/my-first-month-at-softwaremill.html">My first month at SoftwareMill</a>
           </li>
         
           <li>
-            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem.html">Scala and Android: AsyncTask implementation problem</a>
           </li>
         
           <li>
-            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+            <a href="/2012/10/warsjawa-2012.html">Warsjawa 2012</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2.html">Scala case classes and annotations, part 2</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1.html">Scala case classes and annotations, part 1</a>
           </li>
         
           <li>
-            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one.html">Function Programming Principles in Scala course - week one</a>
           </li>
         
       </ul>
@@ -242,7 +238,7 @@ Th">
 <script>
   var disqus_shortname = 'piotrbuda';
   
-  var disqus_url = 'http://www.piotrbuda.eu/2012/12/scala-and-android-asynctask-implementation-problem/';
+  var disqus_url = 'http://www.piotrbuda.eu/2012/06/play-store-on-emulator-and-morals.html';
   
   (function(){
     var dsq = document.createElement('script');

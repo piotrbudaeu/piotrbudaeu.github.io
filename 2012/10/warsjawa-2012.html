@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Commenting the code is obsolete | Software Development Ramblings</title>
+  <title>Warsjawa 2012 | Software Development Ramblings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Some time ago I had a few visits from fellow developers asking me questions about that I supposedly created. Since I obviously created some of that code months or years ago, I often couldn’t answer th">
+  <meta name="description" content="I didn’t attent any conference for the past 18 months. Last time I was on one was when I was sent to eye-opening meeting with Greg Young. Recently a friend of mine suggested that we should go to Warsj">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Commenting the code is obsolete">
-<meta property="og:url" content="http://www.piotrbuda.eu/2012/04/commenting-the-code-is-obsolete/index.html">
+<meta property="og:title" content="Warsjawa 2012">
+<meta property="og:url" content="http://www.piotrbuda.eu/2012/10/warsjawa-2012.html">
 <meta property="og:site_name" content="Software Development Ramblings">
-<meta property="og:description" content="Some time ago I had a few visits from fellow developers asking me questions about that I supposedly created. Since I obviously created some of that code months or years ago, I often couldn’t answer th">
+<meta property="og:description" content="I didn’t attent any conference for the past 18 months. Last time I was on one was when I was sent to eye-opening meeting with Greg Young. Recently a friend of mine suggested that we should go to Warsj">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Commenting the code is obsolete">
-<meta name="twitter:description" content="Some time ago I had a few visits from fellow developers asking me questions about that I supposedly created. Since I obviously created some of that code months or years ago, I often couldn’t answer th">
+<meta name="twitter:title" content="Warsjawa 2012">
+<meta name="twitter:description" content="I didn’t attent any conference for the past 18 months. Last time I was on one was when I was sent to eye-opening meeting with Greg Young. Recently a friend of mine suggested that we should go to Warsj">
 <meta name="twitter:creator" content="@piotrbuda">
   
     <link rel="alternative" href="/atom.xml" title="Software Development Ramblings" type="application/atom+xml">
@@ -76,10 +76,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-commenting-the-code-is-obsolete" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-warsjawa-2012" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2012/04/commenting-the-code-is-obsolete/" class="article-date">
-  <time datetime="2012-04-11T10:01:00.000Z" itemprop="datePublished">2012-04-11</time>
+    <a href="/2012/10/warsjawa-2012.html" class="article-date">
+  <time datetime="2012-10-29T12:02:00.000Z" itemprop="datePublished">2012-10-29</time>
 </a>
     
   </div>
@@ -90,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Commenting the code is obsolete
+      Warsjawa 2012
     </h1>
   
 
@@ -98,19 +98,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Some time ago I had a few visits from fellow developers asking me questions about that I supposedly created. Since I obviously created some of that code months or years ago, I often couldn’t answer their questions because either my explanations were false (changed requirements) or I didn’t even know about that particular case (new code). It struck me that they came to me to ask these questions because I was placed as the author of the class in Javadoc…</p>
-<p>More recently I’ve been in situation when our team leader told us that we’re not putting enough comments in our classes and the we could at least provide the @author Javadoc comment (or ASDoc in that case) so that everyone knows who to talk to about this code.</p>
-<p>Revelation came to me sometime after that statement - why the hell do I need author information in a file?! I am checking in my code to a VCS which provides that information out of the box, moreover when the code changes it can report who changed the code! @author becomes meaningless after some time, VCS history does not - so use VCS instead.</p>
-<p>This also applies to other comments (IMO). Instead of creating some code and heavily comment what it does (bad) I prefer to write smaller methods that tell what they’re doing (good). The only thing I think a comment is necessary for is method arguments, but I could also omit them when I call my arguments with meaningful names. This does not apply to function arguments, because I have to comment that function arguments. But that can also lead to something like this:</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">* @param callback function to call with signature </span><br><span class="line">*                 &lt;code&gt;function(arg1:String, arg2:Object):void&lt;/code&gt;</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span><span class="params">(callback:Function)</span><span class="type">:void</span> </span>&#123;</span><br><span class="line">  callback(arg1, arg2, arg3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Summary: instead of extensive comments, write better code and use tools that you’re given.</p>
+        <p>I didn’t attent any conference for the past 18 months. Last time I was on one was when I was sent to eye-opening meeting with Greg Young. Recently a friend of mine suggested that we should go to <a href="http://warszawa.jug.pl/warsjawa-2012" target="_blank" rel="external">Warsjawa 2012</a> conference as it’s free and relatively close to Lublin.</p>
+<p>We decided to sign up for a workshop called ‘One day with a difficult client’ that was lead by guys from <a href="http://softwaremill.com/" target="_blank" rel="external">SoftwareMill</a>. The idea of the workshop was to show attendees some common problems people face when working with their clients. Even though I don’t work directly with our client every day I read a few things here and there how they can be PITA and I had some expectations regarding this workshop. It turned out great and here’s how it went.</p>
+<p>The whole workshop began with a short, but fun, game which helped every attendee remember other’s names. This game is very simple: just say your name and make up some kind of symbol (V sign, finger on your mouth, anything) and the person after you has to repeat EVERY name and EVERY symbol before. There were 13 attendees and 3 leaders so after 16 rounds we pretty much knew every name. Very fun way of introducing a group of people to each other, and very efficient at that.</p>
+<p>After that we were split into three groups and each group was given a contract to build a space capsule. We were presented with some stuff that we could use (scissors, paper, glue, boxes, foil - you get the picture) and we had some time to think about the contract. The whole game was to take around 1,5 hours and it was split into a few 15-20 minute sprints. After each sprint our client would come and look at what we’ve done and answer questions.</p>
+<p>When the time run out we were taken to the launch site - the capsule had to actually fly! The clients were mostly happy and we mostly delivered what they wanted. Or did we? That was the whole point of the workshop. We started out with a contract for a space capsule and ended up with a prototype model that instead of flying out to space was to fly just three meters straight from the launcher, which wasn’t a rocket booster but a simple slingshot.</p>
+<p>At the end, we were doing retrospectives in teams and shared our experiences with others. Some teams had problems other didn’t and guys from SoftwareMill told us what we did good and where our attention should be next time. I can’t tell for other teams, but our team didn’t have most of the problems, and we also did the best looking capsule! Unfortunately we did one thing wrong - we emphasized one aspect of the capsule without much regard to another which resulted in the best looking and most secure capsule that… didn’t fly.</p>
+<p>There were a few things I didn’t like though. The difficult client didn’t appear that difficult after all. I expected the client to be a little more aggresive, inconsistent (the ‘client’ had three representatives and on each meeting another representative was present, and mostly agreed with his/her colegues) and impatient. But apparently some previous groups had problems already and this workshop was meant to be fun and not hardcore :) I can live with that.</p>
+<p>Another ‘thing’ was that shortly after the workshop was over, everyone was gone. We couldn’t talk more about what happened and share more experiences, not only regarding workshops. I’d definately fix that next time because for me this was the worst thing to happen.</p>
+<p>Overall, it was one of the best days lately. Lots of laughter, lots of good experience and lots of great people to work with. I think I will attend Warsjawa 2013 :)</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.piotrbuda.eu/2012/04/commenting-the-code-is-obsolete/" data-id="ci9ah5loa001e6qod62ctt35m" class="article-share-link">Share</a>
+      <a data-url="http://www.piotrbuda.eu/2012/10/warsjawa-2012.html" data-id="ci9axxg69000o2l1v28nk659m" class="article-share-link">Share</a>
       
-        <a href="http://www.piotrbuda.eu/2012/04/commenting-the-code-is-obsolete/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://www.piotrbuda.eu/2012/10/warsjawa-2012.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -119,19 +122,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2012/05/getting-auth-token-on-an-android-device/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2012/12/scala-and-android-asynctask-implementation-problem.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Getting auth token on an Android device
+          Scala and Android: AsyncTask implementation problem
         
       </div>
     </a>
   
   
-    <a href="/2012/03/heroku-and-java-from-newbie-to-beginner-part-2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2012/10/scala-case-classes-and-annotations-part-2.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Heroku and Java - from newbie to beginner, part 2</div>
+      <div class="article-nav-title">Scala case classes and annotations, part 2</div>
     </a>
   
 </nav>
@@ -156,43 +159,43 @@
       <ul>
         
           <li>
-            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000.html">Microsoft Natural Ergonomic Keyboard 4000</a>
           </li>
         
           <li>
-            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+            <a href="/2013/04/scalawebsocket.html">ScalaWebSocket</a>
           </li>
         
           <li>
-            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift.html">Trying to deploy Scala app on OpenShift</a>
           </li>
         
           <li>
-            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+            <a href="/2013/02/angularjs-directive-for-password-matching.html">Angular directive for password matching</a>
           </li>
         
           <li>
-            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+            <a href="/2013/02/my-first-month-at-softwaremill.html">My first month at SoftwareMill</a>
           </li>
         
           <li>
-            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem.html">Scala and Android: AsyncTask implementation problem</a>
           </li>
         
           <li>
-            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+            <a href="/2012/10/warsjawa-2012.html">Warsjawa 2012</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2.html">Scala case classes and annotations, part 2</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1.html">Scala case classes and annotations, part 1</a>
           </li>
         
           <li>
-            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one.html">Function Programming Principles in Scala course - week one</a>
           </li>
         
       </ul>
@@ -240,7 +243,7 @@
 <script>
   var disqus_shortname = 'piotrbuda';
   
-  var disqus_url = 'http://www.piotrbuda.eu/2012/04/commenting-the-code-is-obsolete/';
+  var disqus_url = 'http://www.piotrbuda.eu/2012/10/warsjawa-2012.html';
   
   (function(){
     var dsq = document.createElement('script');

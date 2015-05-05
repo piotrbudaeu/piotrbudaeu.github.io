@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Getting auth token on an Android device | Software Development Ramblings</title>
+  <title>Play Store API on GitHub.com | Software Development Ramblings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: Toxic Bakery has a">
+  <meta name="description" content="[Update 2013-05-14] I will no longer keep this project on my GitHub, I didn’t have time to play with it and most likely this is already obsolete API. It has been removed.
+If anyone is interested, I mi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Getting auth token on an Android device">
-<meta property="og:url" content="http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device/index.html">
+<meta property="og:title" content="Play Store API on GitHub.com">
+<meta property="og:url" content="http://www.piotrbuda.eu/2012/07/play-store-api-on-github-dot-com.html">
 <meta property="og:site_name" content="Software Development Ramblings">
-<meta property="og:description" content="I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: Toxic Bakery has a">
+<meta property="og:description" content="[Update 2013-05-14] I will no longer keep this project on my GitHub, I didn’t have time to play with it and most likely this is already obsolete API. It has been removed.
+If anyone is interested, I mi">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Getting auth token on an Android device">
-<meta name="twitter:description" content="I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: Toxic Bakery has a">
+<meta name="twitter:title" content="Play Store API on GitHub.com">
+<meta name="twitter:description" content="[Update 2013-05-14] I will no longer keep this project on my GitHub, I didn’t have time to play with it and most likely this is already obsolete API. It has been removed.
+If anyone is interested, I mi">
 <meta name="twitter:creator" content="@piotrbuda">
   
     <link rel="alternative" href="/atom.xml" title="Software Development Ramblings" type="application/atom+xml">
@@ -76,12 +79,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-getting-auth-token-on-an-android-device" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-play-store-api-on-github-dot-com" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2012/05/getting-auth-token-on-an-android-device/" class="article-date">
-  <time datetime="2012-04-30T22:18:00.000Z" itemprop="datePublished">2012-05-01</time>
+    <a href="/2012/07/play-store-api-on-github-dot-com.html" class="article-date">
+  <time datetime="2012-07-23T09:59:00.000Z" itemprop="datePublished">2012-07-23</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>►<a class="article-category-link" href="/categories/android/google-play-store/">google play store</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -90,7 +97,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Getting auth token on an Android device
+      Play Store API on GitHub.com
     </h1>
   
 
@@ -98,38 +105,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>I’m currently working on a little pet project that targets Android devices (well, at least my Galaxy) and requires auth token to operate. It wasn’t hard to find the code to do this: <a href="http://www.toxicbakery.com/android-development/getting-google-auth-sub-tokens-in-your-android-applications/comment-page-1/#comment-238" target="_blank" rel="external">Toxic Bakery has already shown how to do it.</a></p>
-<p>My first attempt of using this code was successful and running on the device was easy - I simply added a button that invoked their method and it worked. However when I used this solution in my pet project it suddenly stopped working properly. The problem was happening when I was invalidating the auth token - recursive call would fail with IllegalStateException saying that calling that method on main thread would lead to a deadlock.</p>
-<p>At first I didn’t know what to do - I am, after all, Android newbie. I spent some time trying to find out why my first code worked and second didn’t and I found a single difference - I used minSdkVersion in AndroidManifest.xml for my pet project. I have no idea why this happens, I don’t even know where to start looking. But I created a simple workaround to solve the problem - I used AsyncTask to create a background loader and it works very well now, not to mention I’ve had a good time reading about threading in Android.</p>
-<p>The project with workaround can be found at <a href="https://github.com/piotrbudaeu/android-authtoken" target="_blank" rel="external">GitHub</a></p>
+        <p><strong>[Update 2013-05-14] I will no longer keep this project on my GitHub, I didn’t have time to play with it and most likely this is already obsolete API. It has been removed.</strong></p>
+<p><del>If anyone is interested, I mirrored a great project: <a href="http://code.google.com/p/android-market-api/" target="_blank" rel="external">Android Market API</a> and it’s now available <a href="https://github.com/pbuda/playstoreapi" target="_blank" rel="external">on GitHub.com</a>. I am using this API for my yet-to-be announced Android project and because of lack of support from original authors I decided to mirror it and introduce fixes/new features.</del></p>
+<p><del>Currently I’m reworking the API of the project, but for now you can download the sources and build with Maven OR download the jar directly from project downloads section.</del></p>
+<p><del>However, please notice that I focus on making this library work well on Android devices because in order to work properly it requires actual Android device capable of running Play Store.</del></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device/" data-id="ci9ah5lo8001d6qodun2e1egj" class="article-share-link">Share</a>
+      <a data-url="http://www.piotrbuda.eu/2012/07/play-store-api-on-github-dot-com.html" data-id="ci9axxg6j000u2l1v5d3z5rkd" class="article-share-link">Share</a>
       
-        <a href="http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://www.piotrbuda.eu/2012/07/play-store-api-on-github-dot-com.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/api/">api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/google-play/">google play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play-store-api/">play store api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/store/">store</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2012/05/installing-google-play-on-android-emulator/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2012/08/gitflow-intellij-idea-plugin.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Installing Google Play on Android Emulator
+          GitFlow Intellij Idea plugin
         
       </div>
     </a>
   
   
-    <a href="/2012/04/commenting-the-code-is-obsolete/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2012/06/play-store-on-emulator-and-morals.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Commenting the code is obsolete</div>
+      <div class="article-nav-title">Play Store on Emulator and morals</div>
     </a>
   
 </nav>
@@ -154,43 +163,43 @@
       <ul>
         
           <li>
-            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000/">Microsoft Natural Ergonomic Keyboard 4000</a>
+            <a href="/2013/05/microsoft-natural-ergonomic-keyboard-4000.html">Microsoft Natural Ergonomic Keyboard 4000</a>
           </li>
         
           <li>
-            <a href="/2013/04/scalawebsocket/">ScalaWebSocket</a>
+            <a href="/2013/04/scalawebsocket.html">ScalaWebSocket</a>
           </li>
         
           <li>
-            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift/">Trying to deploy Scala app on OpenShift</a>
+            <a href="/2013/02/trying-to-deploy-scala-app-on-openshift.html">Trying to deploy Scala app on OpenShift</a>
           </li>
         
           <li>
-            <a href="/2013/02/angularjs-directive-for-password-matching/">Angular directive for password matching</a>
+            <a href="/2013/02/angularjs-directive-for-password-matching.html">Angular directive for password matching</a>
           </li>
         
           <li>
-            <a href="/2013/02/my-first-month-at-softwaremill/">My first month at SoftwareMill</a>
+            <a href="/2013/02/my-first-month-at-softwaremill.html">My first month at SoftwareMill</a>
           </li>
         
           <li>
-            <a href="/2012/12/scala-and-android-asynctask-implementation-problem/">Scala and Android: AsyncTask implementation problem</a>
+            <a href="/2012/12/scala-and-android-asynctask-implementation-problem.html">Scala and Android: AsyncTask implementation problem</a>
           </li>
         
           <li>
-            <a href="/2012/10/warsjawa-2012/">Warsjawa 2012</a>
+            <a href="/2012/10/warsjawa-2012.html">Warsjawa 2012</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-2/">Scala case classes and annotations, part 2</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-2.html">Scala case classes and annotations, part 2</a>
           </li>
         
           <li>
-            <a href="/2012/10/scala-case-classes-and-annotations-part-1/">Scala case classes and annotations, part 1</a>
+            <a href="/2012/10/scala-case-classes-and-annotations-part-1.html">Scala case classes and annotations, part 1</a>
           </li>
         
           <li>
-            <a href="/2012/09/function-programming-principles-in-scala-course-week-one/">Function Programming Principles in Scala course - week one</a>
+            <a href="/2012/09/function-programming-principles-in-scala-course-week-one.html">Function Programming Principles in Scala course - week one</a>
           </li>
         
       </ul>
@@ -238,7 +247,7 @@
 <script>
   var disqus_shortname = 'piotrbuda';
   
-  var disqus_url = 'http://www.piotrbuda.eu/2012/05/getting-auth-token-on-an-android-device/';
+  var disqus_url = 'http://www.piotrbuda.eu/2012/07/play-store-api-on-github-dot-com.html';
   
   (function(){
     var dsq = document.createElement('script');
